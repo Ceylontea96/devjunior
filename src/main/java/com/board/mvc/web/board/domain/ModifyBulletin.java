@@ -14,4 +14,5 @@ public class ModifyBulletin {
     private String title; // 글제목 title
     private String content; // 글내용 content
     private int recommend; // 추천수 recommend
+
 }
