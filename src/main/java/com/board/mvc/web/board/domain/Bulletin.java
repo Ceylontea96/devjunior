@@ -1,0 +1,21 @@
+package com.board.mvc.web.board.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+
+@Getter @Setter
+@AllArgsConstructor
+public class Bulletin {
+
+    private int boardNo; // 글번호 board_no
+    private String writer; // 작성자 writer
+    private String title; // 글제목 title
+    private String content; // 글내용 content
+    private int recommend; // 추천수 recommend
+    private int viewCnt; // 조회수 views
+    private Date postTime; // 등록일자 post_time
+
+}
