@@ -14,9 +14,9 @@ CREATE TABLE bulletin (
     writer VARCHAR2(50) NOT NULL,
     title VARCHAR2(200) NOT NULL,
     content VARCHAR2(3000),
-    recommend NUMBER(4),
-    views NUMBER(5),
-    post_time DATE,
+    recommend NUMBER(4) DEFAULT 0,
+    views NUMBER(5) DEFAULT 0,
+    post_time DATE DEFAULT SYSDATE,
     CONSTRAINT pk_bulletin PRIMARY KEY (board_no),
     CONSTRAINT fk_bulletin FOREIGN KEY (writer) REFERENCES users (user_id)
 );
