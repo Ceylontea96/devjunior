@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com.spring.mvc.web")
+@ComponentScan(basePackages = "com.board.mvc.web")
 public class DataBaseConfig {
 
     // 커넥션 풀 및 연결정보 설정

@@ -28,7 +28,7 @@ CREATE TABLE reply (
     board_no NUMBER(10),
     writer VARCHAR2(20) NOT NULL,
     content VARCHAR2(1000) NOT NULL,
-    reply_date DATE NOT NULL,
+    reply_date DATE DEFAULT SYSDATE,
     CONSTRAINT pk_reply PRIMARY KEY (reply_no),
     CONSTRAINT fk_reply FOREIGN KEY (writer) REFERENCES users (user_id),
     CONSTRAINT fk_reply2 FOREIGN KEY (board_no) REFERENCES bulletin (board_no)
