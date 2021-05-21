@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/users")
 @Log4j2
 public class UserController {
 
     private final UserService userService;
+
+    private static final String LOGIN_USER = "loginUser";
 
     @Autowired
     public UserController(UserService userService) {
@@ -32,10 +36,14 @@ public class UserController {
 
     //로그인 정보 저장 요청
     @PostMapping("/sign-in")
-    public String signIn(User user) {
+    public String signIn(User user, HttpSession session) {
+        //로그인 성공 시 로그인한 유저 객체를 세션에 저장
+        session.setAttribute(LOGIN_USER, user);
+
         return "";
         //로그인 성공시 게시판 메인 화면 호출
     }
+
 
     //회원가입 화면 요청
     @GetMapping("/sign-up")
@@ -79,6 +87,12 @@ public class UserController {
     }
 
     //로그아웃 요청
+    @GetMapping("")
+    public String logout(HttpSession session) {
+        session.removeAttribute(LOGIN_USER);
+        session.invalidate();
+        return "";
+    }
 
     //회원 탈퇴 요청
     @GetMapping("/withdraw")

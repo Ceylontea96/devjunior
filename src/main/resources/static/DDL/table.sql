@@ -23,6 +23,8 @@ CREATE TABLE bulletin (
 
 SELECT * FROM bulletin;
 
+CREATE SEQUENCE SEQ_REPLY;
+
 CREATE TABLE reply (
     reply_no NUMBER(5) NOT NULL,
     board_no NUMBER(10),
@@ -33,3 +35,13 @@ CREATE TABLE reply (
     CONSTRAINT fk_reply FOREIGN KEY (writer) REFERENCES users (user_id),
     CONSTRAINT fk_reply2 FOREIGN KEY (board_no) REFERENCES bulletin (board_no)
 );
+
+SELECT
+    board_no, writer, title, content
+FROM
+    (SELECT /*+INDEX_DESC(board pk_board)*/
+        rownum rn, board_no, writer, title, content
+    FROM board
+    WHERE rownum <= 10)
+WHERE rn > 0
+;

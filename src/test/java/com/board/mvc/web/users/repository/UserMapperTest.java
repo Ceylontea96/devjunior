@@ -22,8 +22,8 @@ class UserMapperTest {
     @DisplayName("입력한 User 정보가 DB에 저장되어야 한다.")
     void registerTest() {
         User user = new User();
-        user.setUserId("aa");
-        user.setUserPw("222");
+        user.setUserId("bb");
+        user.setUserPw("12312312");
         user.setUserName("333");
         userMapper.register(user);
     }
