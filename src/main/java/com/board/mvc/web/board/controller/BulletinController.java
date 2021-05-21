@@ -40,11 +40,11 @@ public class BulletinController {
     public String list(Model model){
         log.info("/board/list GET");
         model.addAttribute("bulletinList", bulletinService.getArticles());
-        model.addAttribute("count", bulletinService.getCount());
         return "bulletin/list";
     }
 
     // 게시글 정보 삭제 요청
+
     // 게시글 세부 정보
     // 게시글 수정 화면 요청
     // 게시글 수정 처리 요청

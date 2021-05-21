@@ -10,45 +10,46 @@
     </insert>
 
 
-<!--    &lt;!&ndash; 게시글 삭제하기 &ndash;&gt;-->
-<!--    <delete id="deleteArticle">-->
-<!--        DELETE FROM board-->
-<!--        WHERE board_no = #{boardNum}-->
-<!--    </delete>-->
+    <!-- 게시글 삭제하기 -->
+    <delete id="deleteArticle">
+        DELETE FROM bulletin
+        WHERE board_no = #{boardNo}
+    </delete>
 
-<!--    <resultMap id="boardMap" type="com.spring.mvc.web.board.domain.Board">-->
-<!--        <result property="boardNum" column="board_no" />-->
-<!--        <result property="viewCnt" column="view_cnt" />-->
-<!--    </resultMap>-->
+    <resultMap id="bulletinMap" type="com.board.mvc.web.board.domain.Bulletin">
+        <result property="boardNo" column="board_no" />
+        <result property="viewCnt" column="views" />
+        <result property="postTime" column="post_time" />
+    </resultMap>
 
-<!--    &lt;!&ndash; 게시글 전체 보기 &ndash;&gt;-->
-<!--    <select id="getArticles" resultMap="boardMap">-->
-<!--        SELECT * FROM board-->
-<!--    </select>-->
+    <!-- 게시글 전체 보기 -->
+    <select id="getArticles" resultMap="bulletinMap">
+        SELECT * FROM bulletin
+    </select>
 
-<!--    &lt;!&ndash; 게시글 내용 보기&ndash;&gt;-->
-<!--    <select id="getArticleContent" resultMap="boardMap">-->
-<!--        SELECT * FROM board-->
-<!--        WHERE board_no = #{boardNum}-->
-<!--    </select>-->
+    <!-- 게시글 내용 보기-->
+    <select id="getArticleContent" resultMap="bulletinMap">
+        SELECT * FROM bulletin
+        board_no = #{boardNo}
+    </select>
 
-<!--    &lt;!&ndash; 게시글 수정 &ndash;&gt;-->
-<!--    <update id="modifyArticle">-->
-<!--        UPDATE board-->
-<!--        SET writer = #{writer}, title = #{title}, content = #{content}-->
-<!--        WHERE board_no = #{boardNum}-->
-<!--    </update>-->
+    <!-- 게시글 수정 -->
+    <update id="modifyArticle">
+        UPDATE bulletin
+        SET writer = #{writer}, title = #{title}, content = #{content}
+        WHERE board_no = #{boardNo}
+    </update>
 
-<!--    &lt;!&ndash; 조회 수 증가 &ndash;&gt;-->
-<!--    <update id="viewCntUp">-->
-<!--        UPDATE board-->
-<!--        SET view_cnt = view_cnt + 1-->
-<!--        WHERE board_no = #{boardNum}-->
-<!--    </update>-->
+    <!-- 조회 수 증가 -->
+    <update id="viewCntUp">
+        UPDATE bulletin
+        SET view_cnt = view_cnt + 1
+        WHERE board_no = #{boardNo}
+    </update>
 
-<!--    &lt;!&ndash; 총 게시글 수 조회 &ndash;&gt;-->
-<!--    <select id="getCount" resultType="int">-->
-<!--        SELECT COUNT(*) FROM board-->
-<!--    </select>-->
+    <!-- 총 게시글 수 조회 -->
+    <select id="getCount" resultType="int">
+        SELECT COUNT(*) FROM bulletin
+    </select>
 
 </mapper>
