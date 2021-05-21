@@ -1,6 +1,7 @@
 package com.board.mvc.web.board.service;
 
 import com.board.mvc.web.board.domain.Bulletin;
+import com.board.mvc.web.board.domain.ModifyBulletin;
 import com.board.mvc.web.board.repository.BulletinMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,14 +46,20 @@ public class BulletinService {
     }
 
     // 게시글 수정하기
-    public void modifyArticle(Bulletin bulletin){
-        bulletinMapper.modifyArticle(bulletin);
+    public void modifyArticle(ModifyBulletin modifyBulletin){
+        bulletinMapper.modifyArticle(modifyBulletin);
     }
 
-    // 조회 수
-    public int getCount(){
-        return bulletinMapper.getCount();
+    // 조회 수 증가
+    public void viewCount(int boardNo){
+        bulletinMapper.viewCntUp(boardNo);
     }
+
+    // 추천 수 증가
+    public void recCntUp(int boardNo){
+        bulletinMapper.recCntUp(boardNo);
+    }
+
 
     // 총 게시글 수 조회
 

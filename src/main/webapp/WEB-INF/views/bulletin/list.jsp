@@ -53,7 +53,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <div class="gradle"><img class="gradle-img" src="../images/gradle.png"></div>
+                <div class="gradle"><img class="gradle-img" src="/images/gradle.png"></div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
         </div>
     </nav>
 
-    <img src="../images/community.png">
+    <img src="/images/community.png">
 
     <h1>Developer's Community</h1>
     <br><br>
@@ -115,14 +115,16 @@
                     <th scope="col">글제목</th>
                     <th scope="col">등록일자</th>
                     <th scope="col">조회수</th>
+                    <th scope="col">추천</th>
                 </tr>
                 <c:forEach var="bulletin" items="${bulletinList}">
                     <tr class="table-active">
                         <td>${bulletin.boardNo}</td>
                         <td>${bulletin.writer}</td>
-                        <td>${bulletin.title}</td>
+                        <td><a href="/bulletin/detail?boardNo=${bulletin.boardNo}&viweFlag=true">${bulletin.title}</a></td>
                         <td>${bulletin.postTime}</td>
                         <td>${bulletin.viewCnt}</td>
+                        <td>${bulletin.recommend}</td>
                     </tr>
                 </c:forEach>
             </tbody>

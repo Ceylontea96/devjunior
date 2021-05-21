@@ -1,6 +1,7 @@
 package com.board.mvc.web.board.repository;
 
 import com.board.mvc.web.board.domain.Bulletin;
+import com.board.mvc.web.board.domain.ModifyBulletin;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,10 +22,14 @@ public interface BulletinMapper {
     Bulletin getArticleContent(int boardNo);
 
     // 게시글 수정하기
-    void modifyArticle(Bulletin bulletin);
+    void modifyArticle(ModifyBulletin modifyBulletin);
     
-    // 조회 수
+    // 조회 수 증가
     void viewCntUp(int boardNo);
+
+    // 추천 수 증가
+    void recCntUp(int boardNo);
+
 
     // 총 게시글 수 조회
     int getCount();

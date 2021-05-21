@@ -30,7 +30,7 @@
     <!-- 게시글 내용 보기-->
     <select id="getArticleContent" resultMap="bulletinMap">
         SELECT * FROM bulletin
-        board_no = #{boardNo}
+        WHERE board_no = #{boardNo}
     </select>
 
     <!-- 게시글 수정 -->
@@ -43,7 +43,7 @@
     <!-- 조회 수 증가 -->
     <update id="viewCntUp">
         UPDATE bulletin
-        SET view_cnt = view_cnt + 1
+        SET views = views + 1
         WHERE board_no = #{boardNo}
     </update>
 
@@ -51,5 +51,12 @@
     <select id="getCount" resultType="int">
         SELECT COUNT(*) FROM bulletin
     </select>
+
+    <!-- 추천 수 증가 -->
+    <update id="recCntUp">
+        UPDATE bulletin
+        SET recommend = recommend +1
+        WHERE board_no = #{boardNo}
+    </update>
 
 </mapper>

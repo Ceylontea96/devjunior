@@ -53,7 +53,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <div class="gradle"><img class="gradle-img" src="../gradle.png"></div>
+                <div class="gradle"><img class="gradle-img" src="../images/gradle.png"></div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,23 +93,20 @@
         <fieldset class="insert">
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">TITLE</label><br>
-                <input class="inputA" type="text" placeholder="제목을 입력해주세요.">
+                <input class="inputA" type="text" name="title" placeholder="제목을 입력해주세요.">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-                <input class="inputA" type="text" placeholder="작성자를 입력해주세요.">
+                <input class="inputA" type="text" name="writer" placeholder="작성자를 입력해주세요.">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">CONTENT</label><br>
-                <textarea class="form-control" placeholder="내용을 입력해주세요." rows="5"></textarea>
+                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요." rows="5"></textarea>
             </div>
-            <div class="form-group">
-                <label for="formFile" class="form-label mt-4">UPLOAD</label><br>
-                <input class="inputA" type="file" id="formFile">
-            </div>
+            
             <br>
             <p>
-            <a href="###등록 후 완료 화면?###" class="btn btn-primary btn-lg" id="register">등록하기</a>
+            <button type="submit" class="btn btn-primary btn-lg" id="register">등록하기</button>
             <a href="/bulletin/list" class="btn btn-primary btn-lg" id="list">목록보기</a>
             </p>
         </fieldset>
