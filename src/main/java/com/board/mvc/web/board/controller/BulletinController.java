@@ -3,6 +3,8 @@ package com.board.mvc.web.board.controller;
 import com.board.mvc.web.board.domain.Bulletin;
 import com.board.mvc.web.board.domain.ModifyBulletin;
 import com.board.mvc.web.board.service.BulletinService;
+import com.board.mvc.web.common.paging.Criteria;
+import com.board.mvc.web.common.paging.PageMaker;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,23 +28,24 @@ public class BulletinController {
     // 게시글 등록 화면 요청
     @GetMapping("/insert")
     public String insert(){
-        log.info("/board/register GET");
+        log.info("/bulletin/insert GET");
         return "bulletin/insert";
     }
 
     // 게시글 등록 처리 요청
     @PostMapping("/insert")
     public String insert(Bulletin bulletin){
-        log.info("/board/register POST");
+        log.info("/bulletin/insert POST");
         bulletinService.insertArticle(bulletin);
         return "redirect:/bulletin/list";
     }
 
-    // 게시물 전체 조회
+    // 게시물 전체 조회 - paging 처리
     @GetMapping("/list")
-    public String list(Model model){
-        log.info("/board/list GET");
-        model.addAttribute("bulletinList", bulletinService.getArticles());
+    public String list(Model model, Criteria criteria){
+        log.info("/bulletin/list GET");
+        model.addAttribute("bulletinList", bulletinService.getArticles(criteria));
+        model.addAttribute("pageMaker", new PageMaker(criteria, bulletinService.getTotalCount()));
         return "bulletin/list";
     }
 

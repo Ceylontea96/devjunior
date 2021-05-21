@@ -1,6 +1,7 @@
 package com.board.mvc.web.board.repository;
 
 import com.board.mvc.web.board.domain.Bulletin;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,5 +36,17 @@ class BulletinMapperTest {
         }
     }
 
+    @Test
+    @DisplayName("300개의 게시글을 등록")
+    void bulkInsert(){
+        for (int i = 0; i < 300; i++) {
+            Bulletin bulletin = new Bulletin();
+            bulletin.setTitle("테스트제목"+i);
+            bulletin.setContent("테스트내용"+i);
+            bulletin.setWriter("aa");
+
+            bulletinMapper.insertArticle(bulletin);
+        }
+    }
 
 }

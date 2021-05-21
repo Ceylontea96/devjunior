@@ -23,9 +23,25 @@
     </resultMap>
 
     <!-- 게시글 전체 보기 -->
-    <select id="getArticles" resultMap="bulletinMap">
+    <!-- <select id="getArticles" resultMap="bulletinMap">
         SELECT * FROM bulletin
+    </select> -->
+
+    <!-- 게시글 전체 보기 - paging 처리 -->
+    <select id="getArticles" resultMap="bulletinMap">
+        <!-- 특수기호 사용 위함 -->
+        <![CDATA[
+        SELECT
+            board_no, writer, title, post_time, views, recommend
+        FROM
+            (SELECT
+                rownum rn, board_no, writer, title,  post_time, views, recommend
+            FROM bulletin
+            WHERE rownum <= #{page} * #{amount})
+        WHERE rn > (#{page}-1) * #{amount}
+        ]]>
     </select>
+
 
     <!-- 게시글 내용 보기-->
     <select id="getArticleContent" resultMap="bulletinMap">
@@ -48,7 +64,7 @@
     </update>
 
     <!-- 총 게시글 수 조회 -->
-    <select id="getCount" resultType="int">
+    <select id="getTotalCount" resultType="int">
         SELECT COUNT(*) FROM bulletin
     </select>
 

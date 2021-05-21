@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시글 작성</title>
+<title>게시글 수정</title>
 
 <!-- main css -->
 <link rel="stylesheet" href="/css/main.css">
@@ -86,27 +86,28 @@
 
     <br><br>
 
-    <h1>게시글 작성</h1>
+    <h1>${bulletin.boardNo}번 게시글 수정</h1>
     <br><br>
 
-    <form action="/bulletin/insert" method="post">
+    <form action="/bulletin/modify" method="post">
+        <input type="hidden" name="boardNo" value="${bulletin.boardNo}">
+        <input type="hidden" name="viewFlag" value="false">
         <fieldset class="insert">
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">TITLE</label><br>
-                <input class="inputA" type="text" name="title" placeholder="제목을 입력해주세요.">
+                <input class="inputA" type="text" name="title" value="${bulletin.title}">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-                <input class="inputA" type="text" name="writer" placeholder="작성자를 입력해주세요.">
+                <input class="inputA" type="text" name="writer" value="${bulletin.writer}">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">CONTENT</label><br>
-                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요." rows="5"></textarea>
+                <textarea class="form-control" rows="5" name="content">${bulletin.content}</textarea>
             </div>
-            
             <br>
             <p>
-            <button type="submit" class="btn btn-primary btn-lg" id="register">등록하기</button>
+            <button class="btn btn-primary btn-lg" id="register">완료</button>
             <a href="/bulletin/list" class="btn btn-primary btn-lg" id="list">목록보기</a>
             </p>
         </fieldset>

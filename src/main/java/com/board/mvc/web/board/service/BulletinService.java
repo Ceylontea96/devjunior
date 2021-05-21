@@ -3,6 +3,7 @@ package com.board.mvc.web.board.service;
 import com.board.mvc.web.board.domain.Bulletin;
 import com.board.mvc.web.board.domain.ModifyBulletin;
 import com.board.mvc.web.board.repository.BulletinMapper;
+import com.board.mvc.web.common.paging.Criteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +35,9 @@ public class BulletinService {
         return content;
     }
 
-    // 게시글 전체보기
-    public List<Bulletin> getArticles(){
-        List<Bulletin> temp = bulletinMapper.getArticles();
-        List<Bulletin> bulletinList = new ArrayList<>();
-        for (int i=temp.size()-1; i>=0; i--){
-            Bulletin bulletin = temp.get(i);
-            bulletinList.add(bulletin);
-        }
-        return bulletinList;
+    // 게시글 전체보기 - paging 처리
+    public List<Bulletin> getArticles(Criteria criteria){
+        return bulletinMapper.getArticles(criteria);
     }
 
     // 게시글 수정하기
@@ -62,5 +57,7 @@ public class BulletinService {
 
 
     // 총 게시글 수 조회
-
+    public int getTotalCount(){
+        return bulletinMapper.getTotalCount();
+    }
 }
