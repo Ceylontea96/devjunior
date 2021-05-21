@@ -66,7 +66,7 @@ public class UserController {
         User user = userService.findOne(userId);
         model.addAttribute("user", user);
 
-        return "";
+        return "/users/user-info";
         //회원 정보 화면 호출
     }
 
