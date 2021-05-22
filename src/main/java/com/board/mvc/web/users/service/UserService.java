@@ -20,7 +20,9 @@ public class UserService {
     }
 
     // 회원 정보 삭제 기능
-    public void delete(String userId) {userMapper.withdraw(userId);}
+    public void delete(String userId) {
+        userMapper.withdraw(userId);
+    }
 
     // 단일 회원 정보 조회 기능
     public User findOne(String userId) {
@@ -36,6 +38,26 @@ public class UserService {
     public void modify(String userId, ModifyUser modifyUser) {
         modifyUser.setUserId(userId);//회원 아이디는 PK라 변경 못하게하고 기존 아이디를 이어받도록 함.
         userMapper.changeUser(modifyUser);
+    }
+
+    // 아이디 존재 여부 확인 기능
+    public boolean isIdFound(String newId) {
+        if (userMapper.findOneUser(newId) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // 비밀번호 확인 기능
+    public boolean isPwRight(User loginUser) {
+        User user = userMapper.findOneUser(loginUser.getUserId());
+
+        if (user.getUserPw().equals(loginUser.getUserPw())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

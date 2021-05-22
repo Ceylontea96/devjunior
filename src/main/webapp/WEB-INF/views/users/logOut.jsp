@@ -72,8 +72,8 @@
                     </li>
 
                     <form class="log-In">
-                        <button type="button" class="btn btn-warning">LOG IN</button>
-                        <button type="button" class="btn btn-info">SIGN UP</button>
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
                     </form>
 
             </div>

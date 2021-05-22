@@ -5,17 +5,18 @@ import com.board.mvc.web.users.domain.User;
 import com.board.mvc.web.users.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/users")
 @Log4j2
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -36,23 +37,21 @@ public class UserController {
 
     //로그인 정보 저장 요청
     @PostMapping("/login")
-    public String signIn(User user, HttpSession session) {
-        User user1 = userService.findOne(user.getUserId());
-        if (user1 == null) {
-            log.info("해당 유저없음!!!!!!!!!!!!!!!!");
-            return "/users/login-fail";
-        } else {
-            if (user.getUserPw().equals(user1.getUserPw())) {
-                log.info("로그인 성공" + user1);
-                //로그인 성공 시 로그인한 유저 객체를 세션에 저장
-                session.setAttribute(LOGIN_USER, user1);
-
-                return "redirect:/bulletin/list";
-                //로그인 성공시 게시판 메인 화면 호출
+    public String signIn(User user, HttpSession session, Model model) {
+        User loginUser = userService.findOne(user.getUserId());
+        if (userService.isIdFound(user.getUserId())) {
+            if (userService.isPwRight(user)) {
+                log.info("로그인 성공한 유저 : " + loginUser);
+                session.setAttribute(LOGIN_USER, loginUser);
+                model.addAttribute("userId", loginUser.getUserId());
+                return "/users/login-success";
             } else {
-                log.info("비번 틀림!!!!!!!!!!!!!!!");
+                log.info("err : wrong password!!");
                 return "/users/login-fail";
             }
+        } else {
+            log.info("err : incorrect id!!");
+            return "/users/login-fail";
         }
 
     }
@@ -63,6 +62,19 @@ public class UserController {
     public String singUp() {
         return "/users/signUp";
         //회원 정보 작성 화면 호출
+    }
+
+    //회원가입 시 아이디 중복 여부 확인 요청
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkId(@PathVariable String id) {
+        log.info("/users/"+id + " GET 비동기 요청!");
+        if (userService.isIdFound(id)) {//해당 아이디가 이미 존재하면 true 리턴
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {//해당 아이디가 존재하지 않으면 false 리턴
+            return new ResponseEntity<> (false, HttpStatus.OK);
+        }
+
     }
 
     //회원가입 정보 저장 요청
@@ -103,8 +115,8 @@ public class UserController {
     //로그아웃 요청
     @GetMapping("/logout")
     public String logout(HttpSession session, Model model) {
-        User user = (User)session.getAttribute(LOGIN_USER);
-        log.info("로그아웃 유저 정보"+user);
+        User user = (User) session.getAttribute(LOGIN_USER);
+        log.info("로그아웃 유저 정보" + user);
         model.addAttribute("user", user);
         session.removeAttribute(LOGIN_USER);
         return "/users/logOut";
@@ -121,7 +133,7 @@ public class UserController {
     // 내 정보 보기
     @GetMapping("/myinfo")
     public String myInfo(HttpSession session) {
-        User user = (User)session.getAttribute(LOGIN_USER);
+        User user = (User) session.getAttribute(LOGIN_USER);
         return "redirect:/users/info?userId=" + user.getUserId();
     }
 
