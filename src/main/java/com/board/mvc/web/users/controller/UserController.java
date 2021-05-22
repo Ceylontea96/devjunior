@@ -68,13 +68,22 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Boolean> checkId(@PathVariable String id) {
-        log.info("/users/"+id + " GET 비동기 요청!");
+        log.info("/users/" + id + " GET 비동기 요청!");
         if (userService.isIdFound(id)) {//해당 아이디가 이미 존재하면 true 리턴
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {//해당 아이디가 존재하지 않으면 false 리턴
-            return new ResponseEntity<> (false, HttpStatus.OK);
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
 
+    }
+
+    //현재 로그인 유저 정보 요청
+    @GetMapping("/now-user")
+    @ResponseBody
+    public ResponseEntity<User> nowUserData(HttpSession session) {
+        User user = (User) session.getAttribute(LOGIN_USER);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     //회원가입 정보 저장 요청
@@ -88,9 +97,11 @@ public class UserController {
 
     //회원 상세정보 요청
     @GetMapping("/info")
-    public String detail(String userId, Model model) {
+    public String detail(String userId, HttpSession session, Model model) {
         User user = userService.findOne(userId);
+        User user1 = (User) session.getAttribute(LOGIN_USER);
         model.addAttribute("user", user);
+        model.addAttribute("nowUser", user1);
 
         return "/users/user-info";
         //회원 정보 화면 호출
@@ -101,7 +112,7 @@ public class UserController {
     public String modify(String userId, Model model) {
         User user = userService.findOne(userId);
         model.addAttribute("user", user);
-        return "/users/modify";
+        return "/users/user-info-modify";
 
     }
 
@@ -131,10 +142,17 @@ public class UserController {
     }
 
     // 내 정보 보기
-    @GetMapping("/myinfo")
-    public String myInfo(HttpSession session) {
+    @GetMapping("/myInfo")
+    public String myInfo(HttpSession session, Model model) {
         User user = (User) session.getAttribute(LOGIN_USER);
-        return "redirect:/users/info?userId=" + user.getUserId();
+        model.addAttribute("nowUser", user);
+//        log.info("/myInfo : " + user + " GET 요청!");
+        //현재 로그인된 사용자가 없으면 로그인 화면으로 이동
+        if (user == null) {
+            return "/users/logIn";
+        } else {
+            return "redirect:/users/info?userId=" + user.getUserId();
+        }
     }
 
 

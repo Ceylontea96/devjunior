@@ -11,31 +11,35 @@
 
     <!-- main css -->
     <link rel="stylesheet" href="/css/main.css">
-    
+
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
         integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-        
+
     <style>
         h1 {
             text-align: center;
             padding: 50px;
         }
+
         .gradle-img {
             width: 50px;
             height: 50px;
         }
+
         .gradle {
             width: 100%;
             height: 100%;
         }
+
         .insert {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
-        .inputA{
+
+        .inputA {
             border: 1px solid lightgray;
             border-radius: 5px;
             width: 350px;
@@ -43,20 +47,29 @@
             padding: 5px;
             float: right;
         }
-        #signIn{
+
+        #signIn {
             width: 400px;
         }
-        .mt-4{
+
+        .mt-4 {
             margin: 10px auto !important;
-        }        
+        }
+
         .wrong {
             color: rgb(235, 68, 68);
         }
+
         .right {
             color: rgb(81, 81, 206);
         }
+
+        .log-In {
+            float: right;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -72,7 +85,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a href="/bulletin/list" class="nav-link active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
@@ -81,15 +94,15 @@
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a href="/users/myInfo" class="nav-link" href="#">MyInfo</a>
                     </li>
 
-                    <form class="log-In">
-                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-                    </form>
 
             </div>
+            <form class="log-In">
+                <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+            </form>
         </div>
     </nav>
 
@@ -122,41 +135,40 @@
                 <label for="exampleTextarea" class="form-label mt-4">NAME</label>
                 <input class="inputA" name="userName" type="text" placeholder="이름">
             </div>
-            
+
 
             <br>
             <p>
-            <button type="button" class="btn btn-primary btn-lg" id="signIn">가입하기</button>
+                <button type="button" class="btn btn-primary btn-lg" id="signIn">가입하기</button>
             </p>
         </fieldset>
     </form>
 
     <script>
-
         const $inputId = document.getElementById('inputId');
         const $idcheck = document.getElementById('idcheck');
-        
+
         function idCheck() {
-            fetch('http://localhost:8181/users/'+$inputId.value)
-            .then(res => res.json())
-            .then(result => {
-                console.log(result);
-                if (result) {
-                    if ($idcheck.classList.contains('right')) {
-                    $idcheck.classList.replace('right', 'wrong');
-                } else {
-                    $idcheck.classList.add('wrong');
-                }
-                $idcheck.textContent = "이미 사용중인 ID입니다."
-                } else {
-                    if ($idcheck.classList.contains('wrong')) {
-                    $idcheck.classList.replace('wrong', 'right');
-                } else {
-                    $idcheck.classList.add('right');
-                }
-                $idcheck.textContent = "사용 가능한 ID입니다.";
-                }
-            });
+            fetch('http://localhost:8181/users/' + $inputId.value)
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result);
+                    if (result) {
+                        if ($idcheck.classList.contains('right')) {
+                            $idcheck.classList.replace('right', 'wrong');
+                        } else {
+                            $idcheck.classList.add('wrong');
+                        }
+                        $idcheck.textContent = "이미 사용중인 ID입니다."
+                    } else {
+                        if ($idcheck.classList.contains('wrong')) {
+                            $idcheck.classList.replace('wrong', 'right');
+                        } else {
+                            $idcheck.classList.add('right');
+                        }
+                        $idcheck.textContent = "사용 가능한 ID입니다.";
+                    }
+                });
         }
 
         $inputId.onkeyup = e => {
@@ -201,9 +213,8 @@
                 alert('비밀번호를 확인해주세요.');
             }
         };
-
     </script>
-    
+
 
 </body>
 
