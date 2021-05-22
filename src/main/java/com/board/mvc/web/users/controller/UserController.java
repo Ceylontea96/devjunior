@@ -28,35 +28,49 @@ public class UserController {
     }
 
     //로그인 화면 요청
-    @GetMapping("/sign-in")
+    @GetMapping("/login")
     public String signIn() {
-        return "/users/sign-in";
+        return "/users/logIn";
         //id, pw 입력화면 호출
     }
 
     //로그인 정보 저장 요청
-    @PostMapping("/sign-in")
+    @PostMapping("/login")
     public String signIn(User user, HttpSession session) {
-        //로그인 성공 시 로그인한 유저 객체를 세션에 저장
-        session.setAttribute(LOGIN_USER, user);
+        User user1 = userService.findOne(user.getUserId());
+        if (user1 == null) {
+            log.info("해당 유저없음!!!!!!!!!!!!!!!!");
+            return "/users/login-fail";
+        } else {
+            if (user.getUserPw().equals(user1.getUserPw())) {
+                log.info("로그인 성공" + user1);
+                //로그인 성공 시 로그인한 유저 객체를 세션에 저장
+                session.setAttribute(LOGIN_USER, user1);
 
-        return "";
-        //로그인 성공시 게시판 메인 화면 호출
+                return "redirect:/bulletin/list";
+                //로그인 성공시 게시판 메인 화면 호출
+            } else {
+                log.info("비번 틀림!!!!!!!!!!!!!!!");
+                return "/users/login-fail";
+            }
+        }
+
     }
 
 
     //회원가입 화면 요청
     @GetMapping("/sign-up")
     public String singUp() {
-        return "";
+        return "/users/signUp";
         //회원 정보 작성 화면 호출
     }
 
     //회원가입 정보 저장 요청
     @PostMapping("/sign-up")
-    public String signUp(User user) {
+    public String signUp(User user, Model model) {
         userService.register(user);
-        return "";
+        model.addAttribute("user", user);
+        return "/users/signUp-success";
         //성공시 회원가입 성공 화면 호출
     }
 
@@ -87,19 +101,28 @@ public class UserController {
     }
 
     //로그아웃 요청
-    @GetMapping("")
-    public String logout(HttpSession session) {
+    @GetMapping("/logout")
+    public String logout(HttpSession session, Model model) {
+        User user = (User)session.getAttribute(LOGIN_USER);
+        log.info("로그아웃 유저 정보"+user);
+        model.addAttribute("user", user);
         session.removeAttribute(LOGIN_USER);
-        session.invalidate();
-        return "";
+        return "/users/logOut";
     }
 
     //회원 탈퇴 요청
     @GetMapping("/withdraw")
     public String withdraw(String userId) {
         userService.delete(userId);
-        return "";
+        return "redirect:/bulletin/list";
         //회원 탈퇴 완료시 탈퇴 완료 화면 또는 완료 메시지와 함께 메인화면 호출
+    }
+
+    // 내 정보 보기
+    @GetMapping("/myinfo")
+    public String myInfo(HttpSession session) {
+        User user = (User)session.getAttribute(LOGIN_USER);
+        return "redirect:/users/info?userId=" + user.getUserId();
     }
 
 

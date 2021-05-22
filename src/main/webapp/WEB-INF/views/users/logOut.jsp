@@ -59,7 +59,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a href="/bulletin/list" class="nav-link active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
@@ -83,7 +83,7 @@
 
     <h1>로그아웃</h1>
     <div class="card border-light mb-3" id="log-Out">
-        <div class="card-header">###ID님###</div>
+        <div class="card-header">${user.userId}님</div>
         <div class="card-body">
             <h5 class="card-title">로그아웃이 완료되었습니다.</h5>
         </div>

@@ -5,6 +5,7 @@ import com.board.mvc.web.board.domain.ModifyBulletin;
 import com.board.mvc.web.board.service.BulletinService;
 import com.board.mvc.web.common.paging.Criteria;
 import com.board.mvc.web.common.paging.PageMaker;
+import com.board.mvc.web.users.domain.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Log4j2
@@ -34,8 +37,12 @@ public class BulletinController {
 
     // 게시글 등록 처리 요청
     @PostMapping("/insert")
-    public String insert(Bulletin bulletin){
+    public String insert(Bulletin bulletin, HttpSession session){
         log.info("/bulletin/insert POST");
+        User user = (User)session.getAttribute("loginUser");
+        if (user != null) {
+            bulletin.setWriter(user.getUserId());
+        }
         bulletinService.insertArticle(bulletin);
         return "redirect:/bulletin/list";
     }

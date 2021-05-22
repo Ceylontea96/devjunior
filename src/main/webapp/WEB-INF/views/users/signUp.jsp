@@ -92,35 +92,34 @@
     <h1>회원가입</h1>
     <br><br>
 
-    <form>
+    <form action="/users/sign-up" method="POST">
         <fieldset class="insert">
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">ID</label>
-                <input class="inputA" type="text" placeholder="아이디">
+                <input class="inputA" name="userId" type="text" placeholder="아이디">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">PW</label>
-                <input class="inputA" type="password" placeholder="비밀번호">
+                <input class="inputA" name="userPw" id="pw1" type="password" placeholder="비밀번호">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">PW</label>
-                <input class="inputA" type="password" placeholder="비밀번호 확인">
+                <input class="inputA" type="password" id="pw2" placeholder="비밀번호 확인">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">NAME</label>
-                <input class="inputA" type="password" placeholder="이름">
+                <input class="inputA" name="userName" type="password" placeholder="이름">
             </div>
-            <div class="form-group">
-                <label for="exampleTextarea" class="form-label mt-4">E-Mail</label>
-                <input class="inputA" type="email" placeholder="메일주소">
-            </div>
+            
 
             <br>
             <p>
-            <a href="###가입 후 어디로??-로그인/목록###" class="btn btn-primary btn-lg" id="signIn">가입하기</a>
+            <button type="submit" class="btn btn-primary btn-lg" id="signIn">가입하기</button>
             </p>
         </fieldset>
     </form>
+
+    
 
 </body>
 

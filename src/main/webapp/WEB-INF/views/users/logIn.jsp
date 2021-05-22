@@ -86,15 +86,15 @@
     <br><br>
 
     <h1>로그인</h1>
-    <form>
+    <form action="/users/login" method="POST">
         <fieldset class="insert">
             <div class="form-group">
-                <input class="inputA" type="text" placeholder="아이디를 입력해주세요."><br>
-                <input class="inputA" type="password" placeholder="비밀번호를 입력해주세요.">
+                <input class="inputA" type="text" name="userId" placeholder="아이디를 입력해주세요."><br>
+                <input class="inputA" type="password" name="userPw" placeholder="비밀번호를 입력해주세요.">
             </div>
             <br>
             <p>
-            <a href="로그인페이지!!!" class="btn btn-primary btn-lg" id="logIn">로그인</a>
+            <button type="submit" btn btn-primary btn-lg" id="logIn">로그인</button>
             </p>
         </fieldset>
     </form>
