@@ -132,7 +132,7 @@
                 <p class="msg"></p>
             </div>
             <div class="form-group">
-                <label for="exampleTextarea" class="form-label mt-4">NAME</label>
+                <label for="exampleTextarea" class="form-label mt-4">NICKNAME</label>
                 <input class="inputA" name="userName" type="text" placeholder="이름">
             </div>
 

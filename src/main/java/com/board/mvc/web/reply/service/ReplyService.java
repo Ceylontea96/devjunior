@@ -26,8 +26,8 @@ public class ReplyService {
     }
 
     // 댓글 수정 기능
-    public void changeReply(ModifyReply modifyReply){
-        replyMapper.changeReply(modifyReply);
+    public void changeReply(Reply reply){
+        replyMapper.changeReply(reply);
     }
 
     // 전체 댓글 조회 기능

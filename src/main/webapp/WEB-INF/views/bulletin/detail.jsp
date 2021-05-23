@@ -20,6 +20,8 @@
     <!-- linearicons -->
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 
+    <script defer></script>
+
     <style>
         h1 {
             text-align: center;
@@ -195,24 +197,31 @@
             <table class="table table-hover">
                 <tbody>
                     <tr class="table-active">
-                        <th scope="col">댓글번호</th>
                         <th scope="col">작성자</th>
-                        <th scope="col">내용</th>
+                        <th scope="col">댓글내용</th>
                         <th scope="col">작성일자</th>
                         <th scope="col">수정</th>
                         <th scope="col">삭제</th>
                     </tr>
                     <c:forEach var="reply" items="${replyList}">
-                        <tr>
-                            <td>${reply.replyNo}</td>
+                        <tr class="list">
                             <td>${reply.writer}</td>
-                            <td>${reply.content}</td>
+                            <td><span class="text">${reply.content}</span></td>
                             <td>
                                 <fmt:formatDate pattern="yyyy/MM/dd HH:MM:SS" value="${reply.replyDate}" />
                             </td>
-                            <!-- <td><a href="/reply/modify?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">수정</a> -->
-                            <td><a href="#">수정</a>
-                            <td><a href="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">삭제</a>
+                            <td>
+                                <a href="/reply/modify?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
+                                    <div class="modify">
+                                        <span class="lnr lnr-undo"></span>
+                                    </div>
+                                </a>
+                            <td>
+                                <a href="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
+                                    <div class="remove">
+                                        <span class="lnr lnr-cross-circle"></span>
+                                    </div>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -222,19 +231,50 @@
         </c:if>
     </section>
 
+
     <script>
-        
-        
+
+        function enterModifyMode($modifySpan) {
+            $modifySpan.classList.replace('lnr-undo', 'lnr-checkmark-circle'); // 아이콘 버튼 수정
+            const $label = $modifySpan.parentNode.previousElementSibling;
+            const $textSpan = $label.lastElementChild.previousElementSibling;
+            const $modInput = document.createElement('input'); // input 텍스트로 교체
+            $modInput.setAttribute('type', 'text');
+            $modInput.classList.add('mod-input'); // 클래스 삽입
+            $modInput.setAttribute('value', $textSpan.textContent);
+            $label.replaceChild($modInput, $textSpan);
+        }
 
 
+        function modifyToDoDate($modifyComSpan){
+            $modifyComSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
+            const $label = $modifyComSpan.parentNode.previousElementSibling;
+            const $modInput = $label.lastElementChild;
+            const $textSpan = document.createElement('span');
+            $textSpan.classList.add('span');
+            $textSpan.textContent = $modInput.value;
+            $label.replaceChild($textSpan, $modInput);
+        }
 
 
         // 메인 즉시 실행 함수
-        (function (){
+            const $list = document.querySelector('.list');
+            console.log($list);
 
+            // 수정 이벤트
+            $list.addEventListener('click', e => {
+                if (e.target.matches('.list .modify .lnr-undo')) {
+                    console.log('수정모드 진입');
+                    enterModifyMode(e.target);
+                } else if (e.target.matches('.list .modify .lnr-checkmark-circle')) {
+                    console.log('수정모드 완료');
+                    modifyToDoDate(e.target);
+                } else {
+                    return;
+                }
+            });
         });
-        
-    </script>
+
 </body>
 
 </html>
