@@ -66,7 +66,7 @@ public class UserController {
     }
 
     //회원가입 시 아이디 중복 여부 확인 요청
-    @GetMapping("/{id}")
+    @GetMapping("/iden/{id}")
     @ResponseBody
     public ResponseEntity<Boolean> checkId(@PathVariable String id) {
         log.info("/users/" + id + " GET 비동기 요청!");
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     //회원가입 또는 닉네임 변경시 닉네임 중복 여부 확인 요청
-    @GetMapping("/{nick}")
+    @GetMapping("/nick/{nick}")
     @ResponseBody
     public ResponseEntity<Boolean> checkNick(@PathVariable String nick) {
         log.info("/users/" + nick + " GET 비동기 요청!");

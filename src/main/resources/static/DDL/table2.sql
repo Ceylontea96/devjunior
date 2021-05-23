@@ -1,3 +1,12 @@
+DROP TABLE reply;
+DROP SEQUENCE SEQ_REPLY;
+DROP TABLE bulletin;
+DROP SEQUENCE SEQ_BOARD;
+DROP TABLE users;
+
+CREATE SEQUENCE SEQ_BOARD;
+CREATE SEQUENCE SEQ_REPLY;
+
 CREATE TABLE users (
     user_id VARCHAR2(20),
     user_pw VARCHAR2(30) NOT NULL,
@@ -6,12 +15,6 @@ CREATE TABLE users (
 );
 
 ALTER TABLE users ADD CONSTRAINT uk_users_user_name UNIQUE(user_name);
-
-SELECT * FROM users;
-
-DROP SEQUENCE SEQ_BOARD;
-CREATE SEQUENCE SEQ_BOARD;
-
 
 CREATE TABLE bulletin (
     board_no NUMBER(10),
@@ -27,8 +30,6 @@ CREATE TABLE bulletin (
     CONSTRAINT fk_bulletin2 FOREIGN KEY (user_name) REFERENCES users (user_name)
 );
 
-CREATE SEQUENCE SEQ_REPLY;
-
 CREATE TABLE reply (
     reply_no NUMBER(5) NOT NULL,
     board_no NUMBER(10),
@@ -41,3 +42,7 @@ CREATE TABLE reply (
     CONSTRAINT fk_reply2 FOREIGN KEY (board_no) REFERENCES bulletin (board_no) ON DELETE CASCADE,
     CONSTRAINT fk_reply3 FOREIGN KEY (user_name) REFERENCES users (user_name)
 );
+
+SELECT * FROM users;
+SELECT * FROM bulletin;
+SELECT * FROM reply;
