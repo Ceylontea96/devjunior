@@ -77,10 +77,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104" target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
