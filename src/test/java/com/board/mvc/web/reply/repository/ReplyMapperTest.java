@@ -40,12 +40,12 @@ class ReplyMapperTest {
     @Test
     @DisplayName("댓글의 변경된 내용이 정상적으로 DB에 저장되어야 한다.")
     void changeTest() {
-        ModifyReply modifyReply = new ModifyReply();
-        modifyReply.setReplyNo(2);
-        modifyReply.setWriter("aa");
-        modifyReply.setContent("22번 댓글 수정함");
+        Reply reply = new Reply();
+        reply.setReplyNo(2);
+        reply.setWriter("aa");
+        reply.setContent("22번 댓글 수정함");
 
-        replyMapper.changeReply(modifyReply);
+        replyMapper.changeReply(reply);
     }
 
     //조회

@@ -1,8 +1,5 @@
 package com.board.mvc.web.reply.controller;
 
-import com.board.mvc.web.board.domain.Bulletin;
-import com.board.mvc.web.board.domain.ModifyBulletin;
-import com.board.mvc.web.reply.domain.ModifyReply;
 import com.board.mvc.web.reply.domain.Reply;
 import com.board.mvc.web.reply.service.ReplyService;
 import lombok.extern.log4j.Log4j2;
@@ -45,11 +42,11 @@ public class ReplyController {
 
 
     // 댓글 수정 처리 요청
-    @PostMapping("/modify")
+    @GetMapping("/modify")
     public String modify(Reply reply){
-//        replyService.changeReply(reply);
+        log.info("/reply/modify POST -" + reply);
+        replyService.changeReply(reply);
         return "redirect:/bulletin/detail?boardNo="+reply.getReplyNo()+"&viewFlag=false";
-
     }
 
 

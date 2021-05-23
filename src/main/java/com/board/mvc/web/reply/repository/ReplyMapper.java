@@ -16,7 +16,7 @@ public interface ReplyMapper {
     void deleteReply(int replyNo);
 
     // 댓글 수정 기능
-    void changeReply(ModifyReply modifyReply);
+    void changeReply(Reply reply);
 
     // 단일 댓글 조회 기능
     Reply findOneReply(int replyNo);

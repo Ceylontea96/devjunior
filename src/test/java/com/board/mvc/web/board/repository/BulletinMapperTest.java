@@ -1,15 +1,12 @@
 package com.board.mvc.web.board.repository;
 
 import com.board.mvc.web.board.domain.Bulletin;
-import com.board.mvc.web.common.paging.SearchCriteria;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BulletinMapperTest {
