@@ -2,6 +2,7 @@ package com.board.mvc.web.reply.controller;
 
 import com.board.mvc.web.reply.domain.Reply;
 import com.board.mvc.web.reply.service.ReplyService;
+import com.board.mvc.web.users.domain.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -18,6 +20,8 @@ import java.util.List;
 public class ReplyController {
 
     private ReplyService replyService;
+
+    private static final String LOGIN_USER = "loginUser";
 
     @Autowired
     public ReplyController(ReplyService replyService){
@@ -34,7 +38,15 @@ public class ReplyController {
 
     // 댓글 등록 처리 요청
     @PostMapping("/insert")
-    public String insert(Reply reply){
+    public String insert(Reply reply, HttpSession session, Model model){
+        User user = (User) session.getAttribute(LOGIN_USER);
+        if (user == null) {
+            //현재 로그인중인 유저가 없으면 그냥 진행
+        } else {
+            reply.setWriter(user.getUserId());
+            reply.setUserName(user.getUserName());
+            model.addAttribute("nowUser", user);
+        }
         log.info("/reply/insert POST - " + reply);
         replyService.saveReply(reply);
         return "redirect:/bulletin/detail?boardNo="+reply.getBoardNo()+"&viewFlag=false";
@@ -43,7 +55,15 @@ public class ReplyController {
 
     // 댓글 수정 처리 요청
     @GetMapping("/modify")
-    public String modify(Reply reply){
+    public String modify(Reply reply, HttpSession session, Model model){
+        User user = (User) session.getAttribute(LOGIN_USER);
+        if (user == null) {
+            //현재 로그인중인 유저가 없으면 그냥 진행
+        } else {
+            reply.setWriter(user.getUserId());
+            reply.setUserName(user.getUserName());
+            model.addAttribute("nowUser", user);
+        }
         log.info("/reply/modify POST -" + reply);
         replyService.changeReply(reply);
         return "redirect:/bulletin/detail?boardNo="+reply.getReplyNo()+"&viewFlag=false";
