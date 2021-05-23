@@ -94,7 +94,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-                <input class="inputA" type="text" name="writer" placeholder="작성자를 입력해주세요.">
+                <p>${nowUser.userName}</p>
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">CONTENT</label><br>

@@ -40,4 +40,12 @@ public class ReplyService {
         return replyMapper.findOneReply(replyNo);
     }
 
+    public boolean isAuthor(String loginId, String bulId) {
+        if (loginId.equals(bulId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

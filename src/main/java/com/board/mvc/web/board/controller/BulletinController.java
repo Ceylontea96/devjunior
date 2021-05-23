@@ -10,11 +10,11 @@ import com.board.mvc.web.reply.service.ReplyService;
 import com.board.mvc.web.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -61,6 +61,22 @@ public class BulletinController {
         return "redirect:/bulletin/list";
     }
 
+    // 본인 확인 요청
+    @GetMapping("/bulIdentify/{id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> identify(@PathVariable String id, HttpSession session) {
+        log.info("/users/identify" + id + " GET 비동기 요청!");
+        User user = (User) session.getAttribute(LOGIN_USER);
+        if (user == null) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        } else if (bulletinService.isAuthor(user.getUserId(), id)) {//해당 아이디가 이미 존재하면 true 리턴
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {//해당 아이디가 존재하지 않으면 false 리턴
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+
+    }
+
     // 게시물 전체 조회 - paging 처리
     @GetMapping("/list")
     public String list(Model model, Criteria criteria) {
@@ -96,8 +112,10 @@ public class BulletinController {
 
     // 게시글 수정 화면 요청
     @GetMapping("/modify")
-    public String modify(Model model, int boardNo, boolean viewFlag) {
+    public String modify(Model model, int boardNo, boolean viewFlag, HttpSession session) {
+        User user = (User) session.getAttribute(LOGIN_USER);
         Bulletin bulletin = bulletinService.getArticleContent(boardNo, viewFlag);
+        model.addAttribute("nowUser", user);
         model.addAttribute("bulletin", bulletin);
         return "bulletin/modify";
     }

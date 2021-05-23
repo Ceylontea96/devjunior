@@ -185,7 +185,7 @@
         const $idcheck = document.getElementById('idcheck');
 
         function idCheck() {
-            fetch('http://localhost:8181/users/iden/' + $inputId.value)
+            fetch('http://localhost:8181/users/exist/' + $inputId.value)
                 .then(res => res.json())
                 .then(result => {
                     console.log(result);
