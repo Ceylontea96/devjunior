@@ -21,6 +21,7 @@
         body {
             position: relative;
         }
+
         h1 {
             text-align: center;
             padding: 50px;
@@ -62,7 +63,10 @@
             float: right;
             margin: 30px;
         }
-        
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
@@ -83,7 +87,8 @@
                         <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                        <a class="nav-link"
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/">Git Site</a>
@@ -92,10 +97,12 @@
                         <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-                    <form class="log-In">
-                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    <form class="log-In" id="loginBtn">
+                        <a href="/users/login" id="loginBtn" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" id="singupBtn" class="btn btn-info">SIGN UP</a>
+                    </form>
+                    <form class="log-In" id="logoutBtn">
+                        <a href="/users/logout" id="logoutBtn" class="btn btn-secondary">LOG OUT</a>
                     </form>
             </div>
         </div>
@@ -159,17 +166,20 @@
             <ul class="pagination">
                 <c:if test="${pageMaker.prev}">
                     <li class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${pageMaker.beginPage - 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&laquo;</a>
+                        <a class="page-link"
+                            href="/bulletin/list?page=${pageMaker.beginPage - 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&laquo;</a>
                     </li>
                 </c:if>
                 <c:forEach var="i" begin="${pageMaker.beginPage}" end="${pageMaker.endPage}" step="1">
                     <li data-page="${i}" class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${i}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">[${i}]</a>
+                        <a class="page-link"
+                            href="/bulletin/list?page=${i}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">[${i}]</a>
                     </li>
                 </c:forEach>
                 <c:if test="${pageMaker.next}">
                     <li class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${pageMaker.endPage + 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&raquo;</a>
+                        <a class="page-link"
+                            href="/bulletin/list?page=${pageMaker.endPage + 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&raquo;</a>
                     </li>
                 </c:if>
             </ul>
@@ -195,6 +205,37 @@
             appendPageActive('${pageMaker.criteria.page}');
         }());
 
+        //접속중인 유저 확인
+        fetch('http://localhost:8181/users/now-user')
+            .then(res => res.json())
+            .then(nowUser => {
+                console.log(nowUser.userName);
+                hideLogin(nowUser.userName);
+                hideLogout(nowUser.userName);
+
+            });
+
+        const $loginBtn = document.getElementById('loginBtn');
+        // const $signupBtn = document.getElementById('signupBtn');
+        const $logoutBtn = document.getElementById('logoutBtn');
+
+        function hideLogout(uName) {
+            if (uName == "anonymous") {
+                $logoutBtn.classList.add('hide');
+            } else {
+                $logoutBtn.classList.remove('hide');
+            }
+        }
+
+        function hideLogin(uName) {
+            if (uName == "anonymous") {
+                $loginBtn.classList.remove('hide');
+                // $signupBtn.classList.remove('hide');
+            } else {
+                $loginBtn.classList.add('hide');
+                // $signupBtn.classList.add('hide');
+            }
+        }
     </script>
 
 </body>

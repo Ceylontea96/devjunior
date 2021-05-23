@@ -97,9 +97,17 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> nowUserData(HttpSession session) {
         User user = (User) session.getAttribute(LOGIN_USER);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        User tempUser = new User("anonymous", "1234", "anonymous");
+        log.info("/users/now-user GET 비동기 요청!");
+        if (user == null) {
+            log.info("now-user 요청 결과 : null!");
+            return new ResponseEntity<>(tempUser, HttpStatus.OK);
+        } else {//해당 아이디가 존재하지 않으면 false 리턴
+            log.info("now-user 요청 결과 : " + user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
+
 
     //회원가입 정보 저장 요청
     @PostMapping("/sign-up")
