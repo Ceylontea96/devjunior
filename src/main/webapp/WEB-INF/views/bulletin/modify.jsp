@@ -62,23 +62,23 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
                     <form class="log-In">
-                        <button type="button" class="btn btn-warning">LOG IN</button>
-                        <button type="button" class="btn btn-info">SIGN UP</button>
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
                     </form>
-
             </div>
         </div>
     </nav>
@@ -98,7 +98,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-                <input class="inputA" type="text" name="writer" value="${bulletin.writer}">
+                <input class="inputA" type="text" name="writer" value="${bulletin.userName}">
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">CONTENT</label><br>

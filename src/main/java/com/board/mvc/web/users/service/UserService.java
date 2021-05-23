@@ -49,6 +49,20 @@ public class UserService {
         }
     }
 
+
+    // 닉네임 존재 여부 확인 기능
+    public boolean isNickFound(String newNick, List<User> list) {
+        boolean result = false;
+        for (User user : list) {
+            if (user.getUserName().equals(newNick)) {
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+        return result;
+    }
+
     // 비밀번호 확인 기능
     public boolean isPwRight(User loginUser) {
         User user = userMapper.findOneUser(loginUser.getUserId());

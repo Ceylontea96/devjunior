@@ -78,7 +78,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/bulletin/list">
                 <div class="gradle"><img class="gradle-img" src="/images/gradle.png"></div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -89,27 +89,24 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="/bulletin/list" class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
-                    <li class="nav-item" id="information">
-                        <a class="nav-link" href="#">About</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-
+                    <form class="log-In">
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    </form>
             </div>
-            <form class="log-In" id="loginform">
-                <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-            </form>
-            <form class="log-In" id="logoutform">
-                <a href="/users/logout" class="btn btn-warning hide">LOG OUT</a>
-            </form>
         </div>
     </nav>
 
@@ -137,19 +134,9 @@
     </form>
 
     <script>
-        fetch('http://localhost:8181/users/now-user')
-            .then(res => res.json())
-            .then(nowUser => {
-                console.log(nowUser);
-                // 현재 로그인된 사용자 정보가 없으면
-                if (nowUser === null) {
-                    document.getElementById('information').classList.add('hide');
-                } else {
-                    document.getElementById('loginform').classList.add('hide');
-                    document.getElementById('logoutform').classList.remove('hide');
-                }
-            });
+        
     </script>
+
 </body>
 
 </html>
