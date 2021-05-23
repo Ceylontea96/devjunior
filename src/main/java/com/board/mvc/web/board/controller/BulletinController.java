@@ -32,9 +32,17 @@ public class BulletinController {
 
     // 게시글 등록 화면 요청
     @GetMapping("/insert")
-    public String insert() {
+    public String insert(HttpSession session, Model model) {
         log.info("/bulletin/insert GET");
-        return "bulletin/insert";
+        User user = (User) session.getAttribute(LOGIN_USER);
+        model.addAttribute("nowUser", user);
+//        log.info("/myInfo : " + user + " GET 요청!");
+        //현재 로그인된 사용자가 없으면 로그인 화면으로 이동
+        if (user == null) {
+            return "/users/logIn";
+        } else {
+            return "bulletin/insert";
+        }
     }
 
     // 게시글 등록 처리 요청
