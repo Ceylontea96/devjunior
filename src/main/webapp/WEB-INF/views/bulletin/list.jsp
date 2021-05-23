@@ -152,7 +152,7 @@
                         <td><a href="/bulletin/detail?boardNo=${bulletin.boardNo}&viweFlag=true">${bulletin.title}</a>
                         </td>
                         <td>
-                            <fmt:formatDate pattern="yyyy년 MM월 dd일 HH:MM:SS" value="${bulletin.postTime}" />
+                            <fmt:formatDate pattern="yyyy년 MM월 dd일 HH:mm:ss" value="${bulletin.postTime}" />
                         </td>
                         <td>${bulletin.viewCnt}</td>
                         <td>${bulletin.recommend}</td>
