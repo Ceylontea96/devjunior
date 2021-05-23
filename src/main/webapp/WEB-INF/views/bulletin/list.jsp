@@ -80,23 +80,23 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">My Info</a>
                     </li>
 
                     <form class="log-In">
                         <button type="button" class="btn btn-warning">LOG IN</button>
                         <button type="button" class="btn btn-info">SIGN UP</button>
+                        <button type="button" class="btn btn-secondary">LOG OUT</button>
                     </form>
-
             </div>
         </div>
     </nav>
@@ -157,25 +157,21 @@
         <!-- 페이지 영역 -->
         <div class="pageMaker">
             <ul class="pagination">
-
                 <c:if test="${pageMaker.prev}">
                     <li class="page-item">
                         <a class="page-link" href="/bulletin/list?page=${pageMaker.beginPage - 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&laquo;</a>
                     </li>
                 </c:if>
-
                 <c:forEach var="i" begin="${pageMaker.beginPage}" end="${pageMaker.endPage}" step="1">
                     <li data-page="${i}" class="page-item">
                         <a class="page-link" href="/bulletin/list?page=${i}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">[${i}]</a>
                     </li>
                 </c:forEach>
-
                 <c:if test="${pageMaker.next}">
                     <li class="page-item">
                         <a class="page-link" href="/bulletin/list?page=${pageMaker.endPage + 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&raquo;</a>
                     </li>
                 </c:if>
-
             </ul>
         </div>
     </c:if>
