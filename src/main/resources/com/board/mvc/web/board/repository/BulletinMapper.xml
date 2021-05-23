@@ -17,9 +17,9 @@
     </delete>
 
     <resultMap id="bulletinMap" type="com.board.mvc.web.board.domain.Bulletin">
-        <result property="boardNo" column="board_no" />
-        <result property="viewCnt" column="views" />
-        <result property="postTime" column="post_time" />
+        <result property="boardNo" column="board_no"/>
+        <result property="viewCnt" column="views"/>
+        <result property="postTime" column="post_time"/>
     </resultMap>
 
     <!-- 게시글 전체 보기 -->
@@ -34,10 +34,27 @@
         SELECT
             board_no, writer, title, post_time, views, recommend
         FROM
-            (SELECT
+            (SELECT  /*+INDEX_DESC(bulletin pk_board_no) */
                 rownum rn, board_no, writer, title,  post_time, views, recommend
             FROM bulletin
-            WHERE rownum <= #{page} * #{amount})
+                WHERE
+            ]]>
+        <if test="type == 'title'">
+            title LIKE '%'||#{keyword}||'%' AND
+        </if>
+        <if test="type == 'content'">
+            content LIKE '%'||#{keyword}||'%' AND
+        </if>
+        <if test="type == 'writer'">
+            writer LIKE '%'||#{keyword}||'%' AND
+        </if>
+        <if test="type == 'titleAndContent'">
+            (title LIKE '%'||#{keyword}||'%'
+            OR content LIKE '%'||#{keyword}||'%') AND
+        </if>
+        <![CDATA[
+                rownum <= #{page} * #{amount}
+                )
         WHERE rn > (#{page}-1) * #{amount}
         ]]>
     </select>
@@ -66,6 +83,20 @@
     <!-- 총 게시글 수 조회 -->
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*) FROM bulletin
+        WHERE board_no > 0
+        <if test="type == 'title'">
+            AND title LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'content'">
+            AND content LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'writer'">
+            AND writer LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'titleAndContent'">
+            AND (title LIKE '%'||#{keyword}||'%'
+            OR content LIKE '%'||#{keyword}||'%')
+        </if>
     </select>
 
     <!-- 추천 수 증가 -->
@@ -74,5 +105,31 @@
         SET recommend = recommend +1
         WHERE board_no = #{boardNo}
     </update>
+
+
+    <!-- keyword 에 따른 검색 기능 -->
+    <!-- 작성자 / 제목 / 내용 / 제목+내용 -->
+    <select id="listSearch" resultMap="bulletinMap">
+        <![CDATA[
+            SELECT
+                board_no, writer, title, content, post_time, views, recommend
+            FROM bulletin
+            WHERE board_no > 0
+        ]]>
+        <if test="type == 'title'">
+            AND title LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'content'">
+            AND content LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'writer'">
+            AND writer LIKE '%'||#{keyword}||'%'
+        </if>
+        <if test="type == 'titleAndContent'">
+            AND (title LIKE '%'||#{keyword}||'%'
+            OR content LIKE '%'||#{keyword}||'%')
+        </if>
+    </select>
+
 
 </mapper>

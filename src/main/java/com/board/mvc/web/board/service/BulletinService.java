@@ -7,7 +7,6 @@ import com.board.mvc.web.common.paging.Criteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +37,7 @@ public class BulletinService {
     // 게시글 전체보기 - paging 처리
     public List<Bulletin> getArticles(Criteria criteria){
         return bulletinMapper.getArticles(criteria);
+//        return bulletinMapper.listSearch(criteria);
     }
 
     // 게시글 수정하기
@@ -57,7 +57,13 @@ public class BulletinService {
 
 
     // 총 게시글 수 조회
-    public int getTotalCount(){
-        return bulletinMapper.getTotalCount();
+    public int getTotalCount(Criteria criteria){
+        return bulletinMapper.getTotalCount(criteria);
     }
+
+    // 검색하기
+/*    List<Bulletin> listArticles(Criteria criteria){
+        return bulletinMapper.listArticles(criteria);
+    }*/
+
 }

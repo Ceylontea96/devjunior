@@ -6,8 +6,27 @@ import lombok.ToString;
 @Getter @ToString
 public class Criteria {
 
+    // 페이징
     private int page;
     private int amount;
+
+
+    // 검색
+    private String type;
+    private String keyword;
+
+    public Criteria(String type, String keyword) {
+        this.type = type;
+        this.keyword = keyword;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 
     public Criteria(){
         this(1,10);
@@ -33,4 +52,5 @@ public class Criteria {
         }
         this.amount = amount;
     }
+
 }
