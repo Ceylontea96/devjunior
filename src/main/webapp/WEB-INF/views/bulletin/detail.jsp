@@ -144,7 +144,7 @@
         <div class="post-time">
             <label for="exampleTextarea" class="form-label mt-4">DATE</label>
             <p>
-                <fmt:formatDate pattern="yyyy년 MM월 dd일 HH:MM:SS" value="${bulletin.postTime}" />
+                <fmt:formatDate pattern="yyyy년 MM월 dd일 HH:mm:ss" value="${bulletin.postTime}" />
             </p>
         </div>
         <div class="form-group">
@@ -217,12 +217,12 @@
                     </tr>
                     <c:forEach var="reply" items="${replyList}">
 
-                        <tr>
+                        <tr class="reply-list" value="${reply.replyNo}">
                             <td>${reply.userName}</td>
-                            <td>${reply.content}</td>
+                            <td class="reply-content"><span>${reply.content}</span></td>
 
                             <td>
-                                <fmt:formatDate pattern="yyyy/MM/dd HH:MM:SS" value="${reply.replyDate}" />
+                                <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${reply.replyDate}" />
                             </td>
                             <td>
                                 <a href="/reply/modify?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
@@ -231,11 +231,14 @@
                                     </div>
                                 </a>
                             <td>
-                                <a href="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
+                                <form action="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}"
+                                    id="del-form">
+                                    <!-- <a href="#"> -->
                                     <div class="remove">
                                         <span class="lnr lnr-cross-circle"></span>
                                     </div>
-                                </a>
+                                    <!-- </a> -->
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -247,6 +250,83 @@
 
 
     <script>
+        const $replyList = document.querySelector('.reply-list');
+
+
+
+
+
+        //댓글 수정 모드 진입 이벤트 처리 함수
+        function enterModifyMode($modSpan) {
+
+            $modSpan.classList.replace('lnr-undo', 'lnr-checkmark-circle');
+            // console.log($modSpan);
+            const $reList = $modSpan.parentNode.parentNode.parentNode.parentNode;
+            console.log($reList.getAttribute('value'));
+            // console.log($reList);
+            // console.log($reList.firstElementChild.nextElementSibling.firstElementChild);
+            const $label = $reList.firstElementChild.nextElementSibling;
+            const $textSpan = $label.firstElementChild;
+
+            const $modInput = document.createElement('input');
+            $modInput.setAttribute('type', 'text');
+            $modInput.classList.add('mod-input');
+            $modInput.setAttribute('value', $textSpan.textContent);
+
+            $label.replaceChild($modInput, $textSpan);
+
+        }
+
+        //댓글 수정 완료 이벤트 처리 함수 정의
+        function modifyReply($modCompleteSpan) {
+
+            modCompleteSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
+
+            const $reList = $modSpan.parentNode.parentNode.parentNode.parentNode;
+            console.log($reList.getAttribute('value'));
+
+            const $label = $modCompleteSpan.parentNode.parentNode.parentNode.parentNode;
+            console.log($label);
+            const $modInput = $label.firstElementChild;
+            console.log($modInput);
+
+            const $textSpan = document.createElement('span');
+            $textSpan.classList.add('text');
+            $textSpan.textContent = $modInput.value;
+
+            $label.replaceChild($textSpan, $modInput);
+
+        }
+
+        //댓글 삭제 이벤트 처리 함수 정의
+        function deleteReply($targetSpan) {
+
+            const $reList = $targetSpan.parentNode.parentNode.parentNode.parentNode;
+
+            const $delForm = document.getElementById('del-form');
+            $delForm.submit();
+
+        }
+
+
+
+        $replyList.addEventListener('click', e => {
+            // e.preventDefault();
+
+            if (e.target.matches('div span.lnr-undo')) {
+                enterModifyMode(e.target);
+            } else if (e.target.matches('div span.lnr-checkmark-circle')) {
+                modifyReply(e.target);
+            } else {
+                return;
+            }
+        });
+
+        document.querySelector('div span.lnr-cross-circle').addEventListener('click', e => {
+
+            deleteReply(e.target);
+
+        })
         // function enterModifyMode($modifySpan) {
         //     $modifySpan.classList.replace('lnr-undo', 'lnr-checkmark-circle'); // 아이콘 버튼 수정
         //     const $label = $modifySpan.parentNode.previousElementSibling;
