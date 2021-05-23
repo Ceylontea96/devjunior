@@ -9,16 +9,16 @@ import java.util.List;
 
 @Mapper
 public interface BulletinMapper {
-    
+
     // 게시글 등록하기
     void insertArticle(Bulletin bulletin);
-    
+
     // 게시글 삭제하기
     void deleteArticle(int boardNo);
 
     // 게시글 전체보기
     List<Bulletin> getArticles();
-    
+
     // 게시글 전체보기 - paging 처리
     List<Bulletin> getArticles(Criteria criteria);
 
@@ -27,7 +27,7 @@ public interface BulletinMapper {
 
     // 게시글 수정하기
     void modifyArticle(ModifyBulletin modifyBulletin);
-    
+
     // 조회 수 증가
     void viewCntUp(int boardNo);
 
@@ -35,8 +35,9 @@ public interface BulletinMapper {
     void recCntUp(int boardNo);
 
     // 총 게시글 수 조회
-    int getTotalCount();
+    int getTotalCount(Criteria criteria);
 
-    // 게시글 검색
+    //게시글 검색
+    List<Bulletin> listSearch(Criteria criteria);
 
 }

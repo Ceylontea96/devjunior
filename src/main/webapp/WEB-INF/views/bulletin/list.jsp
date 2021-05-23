@@ -18,47 +18,44 @@
         integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
 
     <style>
+        body {
+            position: relative;
+        }
         h1 {
             text-align: center;
             padding: 50px;
         }
-
         .d-flex {
             float: right;
             padding: 10px;
         }
-
-        .d-flex .keyword {
+        .d-flex .type {
             border: 2px solid lightgray;
             border-radius: 5px;
         }
-
         .d-flex .search {
             border: 2px solid lightgray;
             border-radius: 5px;
         }
-
         .gradle-img {
             width: 50px;
             height: 50px;
         }
-
         .gradle {
             width: 100%;
             height: 100%;
         }
-
         .pageMaker {
             position: absolute;
             left: 50%;
-            bottom: 5%;
-            transform: translate(-50%, -50%);
+            bottom: -20%;
+            transform: translateX(-50%);
         }
-        #btn-write{
+        #btn-write {
             float: right;
             margin: 30px;
         }
-
+        
     </style>
 </head>
 
@@ -102,16 +99,20 @@
     <h1>Developer's Community</h1>
     <br><br>
 
-    <form class="d-flex">
-        <select name="keyword" class="keyword">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="writer">작성자</option>
-            <option value="TiAndCo">제목+내용</option>
-        </select>
-        <input class="search" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <!-- 검색 영역 -->
+    <div class="d-flex">
+        <form action="/bulletin/list">
+            <select name="type" class="type">
+                <option value="writer">작성자</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="titleAndContent">제목+내용</option>
+            </select>
+
+            <input class="search" name="keyword" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
 
     <br>
 
@@ -122,7 +123,7 @@
     <c:if test="${bulletinList.size() > 0}">
         <table class="table table-hover">
             <tbody>
-                <tr>
+                <tr class="table-active">
                     <th scope="col">글번호</th>
                     <th scope="col">작성자</th>
                     <th scope="col">글제목</th>
@@ -131,7 +132,7 @@
                     <th scope="col">추천</th>
                 </tr>
                 <c:forEach var="bulletin" items="${bulletinList}">
-                    <tr class="table-active">
+                    <tr>
                         <td>${bulletin.boardNo}</td>
                         <td>${bulletin.writer}</td>
                         <td><a href="/bulletin/detail?boardNo=${bulletin.boardNo}&viweFlag=true">${bulletin.title}</a>
@@ -152,19 +153,19 @@
 
                 <c:if test="${pageMaker.prev}">
                     <li class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${pageMaker.beginPage - 1}">&laquo;</a>
+                        <a class="page-link" href="/bulletin/list?page=${pageMaker.beginPage - 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&laquo;</a>
                     </li>
                 </c:if>
 
                 <c:forEach var="i" begin="${pageMaker.beginPage}" end="${pageMaker.endPage}" step="1">
                     <li data-page="${i}" class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${i}">[${i}]</a>
+                        <a class="page-link" href="/bulletin/list?page=${i}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">[${i}]</a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${pageMaker.next}">
                     <li class="page-item">
-                        <a class="page-link" href="/bulletin/list?page=${pageMaker.endPage + 1}">&raquo;</a>
+                        <a class="page-link" href="/bulletin/list?page=${pageMaker.endPage + 1}&type=${pageMaker.criteria.type}&keyword=${pageMaker.criteria.keyword}">&raquo;</a>
                     </li>
                 </c:if>
 
@@ -177,21 +178,18 @@
     </p>
 
 
-
     <script>
-        function appendPageActive(curPageNum){
+        function appendPageActive(curPageNum) {
             const $ul = document.querySelector('.pagination');
-            for(let $li of [...$ul.children]){
-                if($li.dataset.page === curPageNum){
+            for (let $li of [...$ul.children]) {
+                if ($li.dataset.page === curPageNum) {
                     $li.classList.add('active');
                 }
             }
         }
-
         (function () {
             appendPageActive('${pageMaker.criteria.page}');
         }());
-
     </script>
 
 </body>

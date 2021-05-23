@@ -5,28 +5,27 @@ import com.board.mvc.web.board.domain.ModifyBulletin;
 import com.board.mvc.web.board.service.BulletinService;
 import com.board.mvc.web.common.paging.Criteria;
 import com.board.mvc.web.common.paging.PageMaker;
-import com.board.mvc.web.users.domain.User;
+import com.board.mvc.web.reply.domain.Reply;
+import com.board.mvc.web.reply.service.ReplyService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Log4j2
 @RequestMapping("/bulletin")
+@RequiredArgsConstructor
 public class BulletinController {
 
     private final BulletinService bulletinService;
+    private final ReplyService replyService; // 댓글서비스 주입
 
-    @Autowired
-    public BulletinController(BulletinService bulletinService){
-        this.bulletinService = bulletinService;
-    }
 
     // 게시글 등록 화면 요청
     @GetMapping("/insert")
@@ -37,12 +36,8 @@ public class BulletinController {
 
     // 게시글 등록 처리 요청
     @PostMapping("/insert")
-    public String insert(Bulletin bulletin, HttpSession session){
+    public String insert(Bulletin bulletin){
         log.info("/bulletin/insert POST");
-        User user = (User)session.getAttribute("loginUser");
-        if (user != null) {
-            bulletin.setWriter(user.getUserId());
-        }
         bulletinService.insertArticle(bulletin);
         return "redirect:/bulletin/list";
     }
@@ -50,9 +45,9 @@ public class BulletinController {
     // 게시물 전체 조회 - paging 처리
     @GetMapping("/list")
     public String list(Model model, Criteria criteria){
-        log.info("/bulletin/list GET");
+        log.info("/bulletin/list GET- " + criteria);
         model.addAttribute("bulletinList", bulletinService.getArticles(criteria));
-        model.addAttribute("pageMaker", new PageMaker(criteria, bulletinService.getTotalCount()));
+        model.addAttribute("pageMaker", new PageMaker(criteria, bulletinService.getTotalCount(criteria)));
         return "bulletin/list";
     }
 
@@ -64,12 +59,19 @@ public class BulletinController {
         return "redirect:/bulletin/list";
     }
 
+
+
     // 게시글 세부 정보
     @GetMapping("/detail")
     public String detail(Model model, int boardNo, boolean viewFlag){
         bulletinService.viewCount(boardNo);
         Bulletin bulletin = bulletinService.getArticleContent(boardNo, viewFlag);
         model.addAttribute("bulletin", bulletin);
+
+        // 전체 댓글 조회
+        List<Reply> replyList = replyService.finedAllReply(boardNo);
+        log.info(replyList);
+        model.addAttribute("replyList", replyList);
         return "bulletin/detail";
     }
 
@@ -96,7 +98,7 @@ public class BulletinController {
         bulletinService.recCntUp(boardNo);
         Bulletin bulletin = bulletinService.getArticleContent(boardNo, viewFlag);
         model.addAttribute("bulletin", bulletin);
-        return "bulletin/detail";
+        return "redirect:/bulletin/detail?boardNo="+boardNo+"&viewFlag=false";
     }
 
 

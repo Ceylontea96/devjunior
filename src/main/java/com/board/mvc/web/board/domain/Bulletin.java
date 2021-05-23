@@ -1,3 +1,4 @@
+
 package com.board.mvc.web.board.domain;
 
 import lombok.*;

@@ -21,6 +21,12 @@ CREATE TABLE bulletin (
     CONSTRAINT fk_bulletin FOREIGN KEY (writer) REFERENCES users (user_id)
 );
 
+ALTER TABLE bulletin
+ADD CONSTRAINT fk_bulletin2
+    FOREIGN KEY (writer)
+    REFERENCES users(user_id)
+    ON DELETE CASCADE;
+
 SELECT * FROM bulletin;
 
 CREATE SEQUENCE SEQ_REPLY;
