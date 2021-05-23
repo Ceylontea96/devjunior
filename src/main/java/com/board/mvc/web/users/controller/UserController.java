@@ -66,10 +66,10 @@ public class UserController {
     }
 
     //회원가입 시 아이디 중복 여부 확인 요청
-    @GetMapping("/iden/{id}")
+    @GetMapping("/exist/{id}")
     @ResponseBody
     public ResponseEntity<Boolean> checkId(@PathVariable String id) {
-        log.info("/users/" + id + " GET 비동기 요청!");
+        log.info("/users/exist" + id + " GET 비동기 요청!");
         if (userService.isIdFound(id)) {//해당 아이디가 이미 존재하면 true 리턴
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {//해당 아이디가 존재하지 않으면 false 리턴
@@ -82,7 +82,7 @@ public class UserController {
     @GetMapping("/nick/{nick}")
     @ResponseBody
     public ResponseEntity<Boolean> checkNick(@PathVariable String nick) {
-        log.info("/users/" + nick + " GET 비동기 요청!");
+        log.info("/users/nick" + nick + " GET 비동기 요청!");
         List<User> list = userService.findAll();
         if (userService.isNickFound(nick, list)) {//해당 아이디가 이미 존재하면 true 리턴
             return new ResponseEntity<>(true, HttpStatus.OK);

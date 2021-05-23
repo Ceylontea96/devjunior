@@ -66,4 +66,15 @@ public class BulletinService {
         return bulletinMapper.listArticles(criteria);
     }*/
 
+    // 본인 확인
+    public boolean isAuthor(String loginId, String bulId) {
+        if (loginId.equals(bulId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }

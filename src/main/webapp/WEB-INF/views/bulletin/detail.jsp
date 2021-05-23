@@ -84,6 +84,10 @@
         div.button-group {
             text-align: center;
         }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
@@ -104,7 +108,8 @@
                         <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                        <a class="nav-link"
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/">Git Site</a>
@@ -165,9 +170,10 @@
         <br>
         <div class="button-group">
             <a href="/bulletin/list" class="btn btn-primary btn-lg">목록보기</a>
-            <a href="/bulletin/modify?boardNo=${bulletin.boardNo}&viewFlag=false"
-                class="btn btn-primary btn-lg">수정하기</a>
-            <a href="/bulletin/delete?boardNo=${bulletin.boardNo}" class="btn btn-primary btn-lg">삭제하기</a>
+            <a href="/bulletin/modify?boardNo=${bulletin.boardNo}&viewFlag=false" class="btn btn-primary btn-lg"
+                id="modify-bulletin">수정하기</a>
+            <a href="/bulletin/delete?boardNo=${bulletin.boardNo}" class="btn btn-primary btn-lg"
+                id="delete-bulletin">삭제하기</a>
         </div>
 
 
@@ -239,47 +245,77 @@
 
 
     <script>
-
-        function enterModifyMode($modifySpan) {
-            $modifySpan.classList.replace('lnr-undo', 'lnr-checkmark-circle'); // 아이콘 버튼 수정
-            const $label = $modifySpan.parentNode.previousElementSibling;
-            const $textSpan = $label.lastElementChild.previousElementSibling;
-            const $modInput = document.createElement('input'); // input 텍스트로 교체
-            $modInput.setAttribute('type', 'text');
-            $modInput.classList.add('mod-input'); // 클래스 삽입
-            $modInput.setAttribute('value', $textSpan.textContent);
-            $label.replaceChild($modInput, $textSpan);
-        }
-
-
-        function modifyToDoDate($modifyComSpan){
-            $modifyComSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
-            const $label = $modifyComSpan.parentNode.previousElementSibling;
-            const $modInput = $label.lastElementChild;
-            const $textSpan = document.createElement('span');
-            $textSpan.classList.add('span');
-            $textSpan.textContent = $modInput.value;
-            $label.replaceChild($textSpan, $modInput);
-        }
+        // function enterModifyMode($modifySpan) {
+        //     $modifySpan.classList.replace('lnr-undo', 'lnr-checkmark-circle'); // 아이콘 버튼 수정
+        //     const $label = $modifySpan.parentNode.previousElementSibling;
+        //     const $textSpan = $label.lastElementChild.previousElementSibling;
+        //     const $modInput = document.createElement('input'); // input 텍스트로 교체
+        //     $modInput.setAttribute('type', 'text');
+        //     $modInput.classList.add('mod-input'); // 클래스 삽입
+        //     $modInput.setAttribute('value', $textSpan.textContent);
+        //     $label.replaceChild($modInput, $textSpan);
+        // }
 
 
-        // 메인 즉시 실행 함수
-            const $list = document.querySelector('.list');
-            console.log($list);
+        // function modifyToDoDate($modifyComSpan) {
+        //     $modifyComSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
+        //     const $label = $modifyComSpan.parentNode.previousElementSibling;
+        //     const $modInput = $label.lastElementChild;
+        //     const $textSpan = document.createElement('span');
+        //     $textSpan.classList.add('span');
+        //     $textSpan.textContent = $modInput.value;
+        //     $label.replaceChild($textSpan, $modInput);
+        // }
 
-            // 수정 이벤트
-            $list.addEventListener('click', e => {
-                if (e.target.matches('.list .modify .lnr-undo')) {
-                    console.log('수정모드 진입');
-                    enterModifyMode(e.target);
-                } else if (e.target.matches('.list .modify .lnr-checkmark-circle')) {
-                    console.log('수정모드 완료');
-                    modifyToDoDate(e.target);
-                } else {
-                    return;
+
+        // // 메인 즉시 실행 함수
+        // const $list = document.querySelector('.list');
+        // console.log($list);
+
+        // // 수정 이벤트
+        // $list.addEventListener('click', e => {
+        //     if (e.target.matches('.list .modify .lnr-undo')) {
+        //         console.log('수정모드 진입');
+        //         enterModifyMode(e.target);
+        //     } else if (e.target.matches('.list .modify .lnr-checkmark-circle')) {
+        //         console.log('수정모드 완료');
+        //         modifyToDoDate(e.target);
+        //     } else {
+        //         return;
+        //     }
+        // });
+
+
+
+
+
+
+
+        const $modifyBul = document.getElementById('modify-bulletin');
+        const $deleteBul = document.getElementById('delete-bulletin');
+
+
+        fetch('http://localhost:8181/bulletin/bulIdentify/${bulletin.writer}')
+            .then(res => res.json())
+            .then(result => {
+                console.log("본인 확인 결과 : " + result);
+                if (result) { // 글 작성자와 현재 사용자가 같을 때
+
+                } else { //글 작성자와 현재 사용자가 다를 때
+                    hideBtn(result);
                 }
             });
-        });
+
+
+        function hideBtn(result) {
+            if (!result) {
+                $modifyBul.classList.add('hide');
+                $deleteBul.classList.add('hide');
+            }
+        }
+
+        
+    </script>
 
 </body>
 
