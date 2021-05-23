@@ -1,6 +1,7 @@
 package com.board.mvc.web.board.repository;
 
 import com.board.mvc.web.board.domain.Bulletin;
+import com.board.mvc.web.common.paging.SearchCriteria;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,17 @@ class BulletinMapperTest {
             bulletin.setWriter("aa");
 
             bulletinMapper.insertArticle(bulletin);
+        }
+    }
+
+    @Test
+    @DisplayName("검색 테스트")
+    void searchTest() {
+        SearchCriteria criteria = new SearchCriteria("titleAndContent", "바바");
+        List<Bulletin> list = bulletinMapper.listSearch(criteria);
+        System.out.println("================================================");
+        for (Bulletin bulletin : list) {
+            System.out.println(bulletin);
         }
     }
 

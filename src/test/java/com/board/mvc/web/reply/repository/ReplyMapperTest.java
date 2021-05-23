@@ -22,7 +22,7 @@ class ReplyMapperTest {
     @DisplayName("댓글이 DB에 정상적으로 저장되어야 한다.")
     void saveTest() {
         Reply reply = new Reply();
-        reply.setBoardNo(22);
+        reply.setBoardNo(26);
         reply.setWriter("aa");
         reply.setContent("26번 게시글 댓글2222");
 

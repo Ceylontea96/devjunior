@@ -26,20 +26,24 @@
             padding: 50px;
             margin-bottom: 50px;
         }
+
         .gradle-img {
             width: 50px;
             height: 50px;
         }
+
         .gradle {
             width: 100%;
             height: 100%;
         }
+
         .insert {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -40%);
         }
+
         .inputA {
             border: 1px solid lightgray;
             border-radius: 5px;
@@ -47,27 +51,34 @@
             height: 40px;
             padding: 5px;
         }
+
         .btn-lg {
             width: 150px;
             margin: 10px;
         }
+
         .post-time {
             font-size: 12px;
             float: right;
         }
+
         .thumbs {
             font-size: 30px;
             position: absolute;
             right: 0;
         }
+
         .content-container {
             display: flex;
             position: relative;
+
         }
+
         section.content {
             width: 50%;
             margin: 0 auto;
         }
+
         div.button-group {
             text-align: center;
         }
@@ -214,8 +225,13 @@
     <script>
         
         
+
+
+
+
         // 메인 즉시 실행 함수
         (function (){
+
         });
         
     </script>

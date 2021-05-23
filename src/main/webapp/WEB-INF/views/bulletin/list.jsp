@@ -25,32 +25,39 @@
             text-align: center;
             padding: 50px;
         }
+
         .d-flex {
             float: right;
             padding: 10px;
         }
+
         .d-flex .type {
             border: 2px solid lightgray;
             border-radius: 5px;
         }
+
         .d-flex .search {
             border: 2px solid lightgray;
             border-radius: 5px;
         }
+
         .gradle-img {
             width: 50px;
             height: 50px;
         }
+
         .gradle {
             width: 100%;
             height: 100%;
         }
+
         .pageMaker {
             position: absolute;
             left: 50%;
             bottom: -20%;
             transform: translateX(-50%);
         }
+
         #btn-write {
             float: right;
             margin: 30px;
@@ -187,9 +194,11 @@
                 }
             }
         }
+
         (function () {
             appendPageActive('${pageMaker.criteria.page}');
         }());
+
     </script>
 
 </body>
