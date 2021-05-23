@@ -59,6 +59,9 @@
             color: rgb(81, 81, 206);
         }
 
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
@@ -90,10 +93,12 @@
                         <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-                    <form class="log-In">
-                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    <form class="log-In" id="loginBtn">
+                        <a href="/users/login" id="loginBtn" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" id="singupBtn" class="btn btn-info">SIGN UP</a>
+                    </form>
+                    <form class="log-In" id="logoutBtn">
+                        <a href="/users/logout" id="logoutBtn" class="btn btn-secondary">LOG OUT</a>
                     </form>
             </div>
         </div>
@@ -135,6 +140,39 @@
     </form>
 
     <script>
+        //접속중인 유저 확인
+        fetch('http://localhost:8181/users/now-user')
+            .then(res => res.json())
+            .then(nowUser => {
+                console.log(nowUser.userName);
+                hideLogin(nowUser.userName);
+                hideLogout(nowUser.userName);
+
+            });
+
+        const $loginBtn = document.getElementById('loginBtn');
+        // const $signupBtn = document.getElementById('signupBtn');
+        const $logoutBtn = document.getElementById('logoutBtn');
+
+        function hideLogout(uName) {
+            if (uName == "anonymous") {
+                $logoutBtn.classList.add('hide');
+            } else {
+                $logoutBtn.classList.remove('hide');
+            }
+        }
+
+        function hideLogin(uName) {
+            if (uName == "anonymous") {
+                $loginBtn.classList.remove('hide');
+                // $signupBtn.classList.remove('hide');
+            } else {
+                $loginBtn.classList.add('hide');
+                // $signupBtn.classList.add('hide');
+            }
+        }
+
+
         //닉네임 중복 확인
         const $inputNick = document.getElementById('inputNickName');
         const $nickCheck = document.getElementById('nickNameCheck');
@@ -167,8 +205,8 @@
             nickCheck();
         }
 
-         // 비밀번호 체크 단계
-         const $pw1 = document.getElementById('pw1');
+        // 비밀번호 체크 단계
+        const $pw1 = document.getElementById('pw1');
         const $pw2 = document.getElementById('pw2');
 
         const $msg = document.querySelector('.msg');
@@ -203,7 +241,6 @@
                 alert('닉네임 또는 비밀번호를 확인해주세요.');
             }
         };
-
     </script>
 
 </body>

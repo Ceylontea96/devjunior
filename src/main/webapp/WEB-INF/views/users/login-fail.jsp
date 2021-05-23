@@ -51,6 +51,10 @@
         .log-In {
             float: right;
         }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
@@ -72,7 +76,8 @@
                         <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                        <a class="nav-link"
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/">Git Site</a>
@@ -81,10 +86,12 @@
                         <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-                    <form class="log-In">
-                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    <form class="log-In" id="loginBtn">
+                        <a href="/users/login" id="loginBtn" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" id="singupBtn" class="btn btn-info">SIGN UP</a>
+                    </form>
+                    <form class="log-In" id="logoutBtn">
+                        <a href="/users/logout" id="logoutBtn" class="btn btn-secondary">LOG OUT</a>
                     </form>
             </div>
         </div>
@@ -96,6 +103,40 @@
             <h5 class="card-title">아이디 또는 비밀번호를 확인한 후 다시 시도해주십시오.</h5>
         </div>
     </div>
+
+    <script>
+        //접속중인 유저 확인
+        fetch('http://localhost:8181/users/now-user')
+            .then(res => res.json())
+            .then(nowUser => {
+                console.log(nowUser.userName);
+                hideLogin(nowUser.userName);
+                hideLogout(nowUser.userName);
+
+            });
+
+        const $loginBtn = document.getElementById('loginBtn');
+        // const $signupBtn = document.getElementById('signupBtn');
+        const $logoutBtn = document.getElementById('logoutBtn');
+
+        function hideLogout(uName) {
+            if (uName == "anonymous") {
+                $logoutBtn.classList.add('hide');
+            } else {
+                $logoutBtn.classList.remove('hide');
+            }
+        }
+
+        function hideLogin(uName) {
+            if (uName == "anonymous") {
+                $loginBtn.classList.remove('hide');
+                // $signupBtn.classList.remove('hide');
+            } else {
+                $loginBtn.classList.add('hide');
+                // $signupBtn.classList.add('hide');
+            }
+        }
+    </script>
 </body>
 
 </html>
