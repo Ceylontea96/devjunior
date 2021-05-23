@@ -92,7 +92,7 @@ public class BulletinController {
         return "redirect:/bulletin/detail?boardNo="+modifyBulletin.getBoardNo()+"&viewFlag=false";
     }
 
-    // 추천 수 증가 요청
+    // 추천 수 증가 요청,,,
     @GetMapping("/recommend")
     public String recommend(Model model, int boardNo, boolean viewFlag){
         bulletinService.recCntUp(boardNo);
