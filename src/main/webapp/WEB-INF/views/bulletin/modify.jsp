@@ -44,7 +44,6 @@
     #register, #list{
         width: 200px;
     }
-
 </style>
 </head>
 <body>
