@@ -58,7 +58,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/bulletin/list">
                 <div class="gradle"><img class="gradle-img" src="/images/gradle.png"></div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -69,24 +69,24 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="/bulletin/list" class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-
+                    <form class="log-In">
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    </form>
             </div>
-            <form class="log-In">
-                <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-            </form>
         </div>
     </nav>
     <br><br>

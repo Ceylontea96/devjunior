@@ -95,23 +95,26 @@
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
+
                     <form class="log-In">
-                        <button type="button" class="btn btn-warning">LOG IN</button>
-                        <button type="button" class="btn btn-info">SIGN UP</button>
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
                     </form>
             </div>
         </div>
@@ -137,7 +140,7 @@
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-            <p>${bulletin.writer}</p>
+            <p>${bulletin.userName}</p>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">VIEWS</label><br>
@@ -171,6 +174,7 @@
         <form action="/reply/insert" method="POST">
             <input type="hidden" name="boardNo" value="${bulletin.boardNo}">
             <input type="hidden" name="writer" value="aa"><br>
+            <input type="hidden" name="userName" value="bb">
             <div>
                 <div class="form-group">
                     <label class="form-label mt-4">댓글</label>
@@ -195,7 +199,6 @@
             <table class="table table-hover">
                 <tbody>
                     <tr class="table-active">
-                        <th scope="col">댓글번호</th>
                         <th scope="col">작성자</th>
                         <th scope="col">내용</th>
                         <th scope="col">작성일자</th>
@@ -204,8 +207,7 @@
                     </tr>
                     <c:forEach var="reply" items="${replyList}">
                         <tr>
-                            <td>${reply.replyNo}</td>
-                            <td>${reply.writer}</td>
+                            <td>${reply.userName}</td>
                             <td>${reply.content}</td>
                             <td>
                                 <fmt:formatDate pattern="yyyy/MM/dd HH:MM:SS" value="${reply.replyDate}" />

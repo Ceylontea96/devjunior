@@ -5,8 +5,8 @@
 
     <!-- 게시글 등록하기 -->
     <insert id="insertArticle">
-        INSERT INTO bulletin (board_no, writer, title, content, post_time)
-        VALUES(seq_board.nextval, #{writer}, #{title}, #{content}, sysdate)
+        INSERT INTO bulletin (board_no, writer, user_name, title, content, post_time)
+        VALUES(seq_board.nextval, #{writer}, #{userName}, #{title}, #{content}, sysdate)
     </insert>
 
 
@@ -20,6 +20,7 @@
         <result property="boardNo" column="board_no"/>
         <result property="viewCnt" column="views"/>
         <result property="postTime" column="post_time"/>
+        <result property="userName" column="user_name" />
     </resultMap>
 
     <!-- 게시글 전체 보기 -->
@@ -32,10 +33,10 @@
         <!-- 특수기호 사용 위함 -->
         <![CDATA[
         SELECT
-            board_no, writer, title, post_time, views, recommend
+            board_no, writer, user_name, title, post_time, views, recommend
         FROM
             (SELECT  /*+INDEX_DESC(bulletin pk_board_no) */
-                rownum rn, board_no, writer, title,  post_time, views, recommend
+                rownum rn, board_no, writer, user_name, title,  post_time, views, recommend
             FROM bulletin
                 WHERE
             ]]>
@@ -46,7 +47,7 @@
             content LIKE '%'||#{keyword}||'%' AND
         </if>
         <if test="type == 'writer'">
-            writer LIKE '%'||#{keyword}||'%' AND
+            user_name LIKE '%'||#{keyword}||'%' AND
         </if>
         <if test="type == 'titleAndContent'">
             (title LIKE '%'||#{keyword}||'%'
@@ -69,7 +70,7 @@
     <!-- 게시글 수정 -->
     <update id="modifyArticle">
         UPDATE bulletin
-        SET writer = #{writer}, title = #{title}, content = #{content}
+        SET writer = #{writer}, user_name = #{userName}, title = #{title}, content = #{content}
         WHERE board_no = #{boardNo}
     </update>
 
@@ -91,7 +92,7 @@
             AND content LIKE '%'||#{keyword}||'%'
         </if>
         <if test="type == 'writer'">
-            AND writer LIKE '%'||#{keyword}||'%'
+            AND user_name LIKE '%'||#{keyword}||'%'
         </if>
         <if test="type == 'titleAndContent'">
             AND (title LIKE '%'||#{keyword}||'%'
@@ -112,7 +113,7 @@
     <select id="listSearch" resultMap="bulletinMap">
         <![CDATA[
             SELECT
-                board_no, writer, title, content, post_time, views, recommend
+                board_no, writer, user_name, title, content, post_time, views, recommend
             FROM bulletin
             WHERE board_no > 0
         ]]>
@@ -123,7 +124,7 @@
             AND content LIKE '%'||#{keyword}||'%'
         </if>
         <if test="type == 'writer'">
-            AND writer LIKE '%'||#{keyword}||'%'
+            AND user_name LIKE '%'||#{keyword}||'%'
         </if>
         <if test="type == 'titleAndContent'">
             AND (title LIKE '%'||#{keyword}||'%'

@@ -7,9 +7,9 @@
     <!--    void saveReply(Reply reply);-->
     <insert id="saveReply">
         INSERT INTO reply
-        (reply_no, board_no, writer, content, reply_date)
+        (reply_no, board_no, writer, user_name, content, reply_date)
         VALUES
-        (seq_reply.nextval, #{boardNo}, #{writer}, #{content}, sysdate)
+        (seq_reply.nextval, #{boardNo}, #{writer}, #{userName}, #{content}, sysdate)
     </insert>
 
     <!--    // 댓글 삭제 기능-->
@@ -31,6 +31,7 @@
         <result property="replyNo" column="reply_no"/>
         <result property="boardNo" column="board_no"/>
         <result property="replyDate" column="reply_date"/>
+        <result property="userName" column="user_name" />
     </resultMap>
 
 
