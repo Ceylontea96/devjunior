@@ -78,10 +78,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104" target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
@@ -103,7 +103,7 @@
     <h1>${bulletin.boardNo}번 게시글 수정</h1>
     <br><br>
 
-    <form action="/bulletin/modify" method="post">
+    <form action="/bulletin/modify" method="POST">
         <input type="hidden" name="boardNo" value="${bulletin.boardNo}">
         <input type="hidden" name="viewFlag" value="false">
         <fieldset class="insert">
@@ -121,7 +121,7 @@
             </div>
             <br>
             <p>
-                <button class="btn btn-primary btn-lg" id="register">완료</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="register">완료</button>
                 <a href="/bulletin/list" class="btn btn-primary btn-lg" id="list">목록보기</a>
             </p>
         </fieldset>
@@ -142,6 +142,7 @@
         // const $signupBtn = document.getElementById('signupBtn');
         const $logoutBtn = document.getElementById('logoutBtn');
 
+        //display:none 적용
         function hideLogout(uName) {
             if (uName == "anonymous") {
                 $logoutBtn.classList.add('hide');
