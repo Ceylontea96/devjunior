@@ -6,6 +6,7 @@ import com.board.mvc.web.users.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,15 +53,17 @@ public class UserService {
 
     // 닉네임 존재 여부 확인 기능
     public boolean isNickFound(String newNick, List<User> list) {
-        boolean result = false;
-        for (User user : list) {
-            if (user.getUserName().equals(newNick)) {
-                result = true;
-            } else {
-                result = false;
-            }
+        List<String> nickList = new ArrayList<>();
+        List<User> allUser = userMapper.findAllUser();
+        for (User user : allUser) {
+            nickList.add(user.getUserName());
         }
-        return result;
+
+        if (nickList.contains(newNick)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // 비밀번호 확인 기능

@@ -135,11 +135,12 @@
     </form>
 
     <script>
+        //닉네임 중복 확인
         const $inputNick = document.getElementById('inputNickName');
         const $nickCheck = document.getElementById('nickNameCheck');
 
         function nickCheck() {
-            fetch('http://localhost:8181/users/' + $inputNick.value)
+            fetch('http://localhost:8181/users/nick/' + $inputNick.value)
                 .then(res => res.json())
                 .then(result => {
                     console.log(result);
@@ -149,14 +150,14 @@
                         } else {
                             $nickCheck.classList.add('wrong');
                         }
-                        $nickCheck.textContent = "이미 사용중인 ID입니다."
+                        $nickCheck.textContent = "이미 사용중인 NICKNAME입니다."
                     } else {
                         if ($nickCheck.classList.contains('wrong')) {
                             $nickCheck.classList.replace('wrong', 'right');
                         } else {
                             $nickCheck.classList.add('right');
                         }
-                        $nickCheck.textContent = "사용 가능한 ID입니다.";
+                        $nickCheck.textContent = "사용 가능한 NICKNAME입니다.";
                     }
                 });
         }
@@ -196,10 +197,10 @@
             e.preventDefault();
 
             const $form = document.getElementById('modify-form');
-            if ($msg.classList.contains('right') && $idcheck.classList.contains('right')) {
+            if ($msg.classList.contains('right') && $nickCheck.classList.contains('right')) {
                 $form.submit();
             } else {
-                alert('아이디 또는 비밀번호를 확인해주세요.');
+                alert('닉네임 또는 비밀번호를 확인해주세요.');
             }
         };
 

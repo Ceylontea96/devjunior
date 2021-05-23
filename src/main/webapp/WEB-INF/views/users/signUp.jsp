@@ -133,7 +133,10 @@
             </div>
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">NICKNAME</label>
-                <input class="inputA" name="userName" type="text" placeholder="이름">
+                <input class="inputA" name="userName" id="inputNickName" type="text" placeholder="NICKNAME">
+            </div>
+            <div>
+                <p id="nickNameCheck"></p>
             </div>
 
 
@@ -145,11 +148,44 @@
     </form>
 
     <script>
+        //닉네임 중복 확인
+        const $inputNick = document.getElementById('inputNickName');
+        const $nickCheck = document.getElementById('nickNameCheck');
+
+        function nickCheck() {
+            fetch('http://localhost:8181/users/nick/' + $inputNick.value)
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result);
+                    if (result) {
+                        if ($nickCheck.classList.contains('right')) {
+                            $nickCheck.classList.replace('right', 'wrong');
+                        } else {
+                            $nickCheck.classList.add('wrong');
+                        }
+                        $nickCheck.textContent = "이미 사용중인 NICKNAME입니다."
+                    } else {
+                        if ($nickCheck.classList.contains('wrong')) {
+                            $nickCheck.classList.replace('wrong', 'right');
+                        } else {
+                            $nickCheck.classList.add('right');
+                        }
+                        $nickCheck.textContent = "사용 가능한 NICKNAME입니다.";
+                    }
+                });
+        }
+
+        $inputNick.onkeyup = e => {
+            console.log('중복확인 클릭');
+            nickCheck();
+        }
+
+        //아이디 중복 확인
         const $inputId = document.getElementById('inputId');
         const $idcheck = document.getElementById('idcheck');
 
         function idCheck() {
-            fetch('http://localhost:8181/users/' + $inputId.value)
+            fetch('http://localhost:8181/users/iden/' + $inputId.value)
                 .then(res => res.json())
                 .then(result => {
                     console.log(result);
@@ -207,10 +243,10 @@
             e.preventDefault();
 
             const $form = document.getElementById('reg-form');
-            if ($msg.classList.contains('right') && $idcheck.classList.contains('right')) {
+            if (($msg.classList.contains('right') && $idcheck.classList.contains('right')) && $nickCheck.classList.contains('right')) {
                 $form.submit();
             } else {
-                alert('아이디 또는 비밀번호를 확인해주세요.');
+                alert('아이디, 닉네임 또는 비밀번호를 확인해주세요.');
             }
         };
     </script>
