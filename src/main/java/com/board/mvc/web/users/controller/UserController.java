@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -70,6 +71,20 @@ public class UserController {
     public ResponseEntity<Boolean> checkId(@PathVariable String id) {
         log.info("/users/" + id + " GET 비동기 요청!");
         if (userService.isIdFound(id)) {//해당 아이디가 이미 존재하면 true 리턴
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {//해당 아이디가 존재하지 않으면 false 리턴
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+
+    }
+
+    //회원가입 또는 닉네임 변경시 닉네임 중복 여부 확인 요청
+    @GetMapping("/{nick}")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkNick(@PathVariable String nick) {
+        log.info("/users/" + nick + " GET 비동기 요청!");
+        List<User> list = userService.findAll();
+        if (userService.isNickFound(nick, list)) {//해당 아이디가 이미 존재하면 true 리턴
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {//해당 아이디가 존재하지 않으면 false 리턴
             return new ResponseEntity<>(false, HttpStatus.OK);

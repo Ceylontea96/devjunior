@@ -89,13 +89,13 @@
                         <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Info</a>
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
                     <form class="log-In">
-                        <button type="button" class="btn btn-warning">LOG IN</button>
-                        <button type="button" class="btn btn-info">SIGN UP</button>
-                        <button type="button" class="btn btn-secondary">LOG OUT</button>
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
                     </form>
             </div>
         </div>
@@ -141,7 +141,7 @@
                 <c:forEach var="bulletin" items="${bulletinList}">
                     <tr>
                         <td>${bulletin.boardNo}</td>
-                        <td>${bulletin.writer}</td>
+                        <td>${bulletin.userName}</td>
                         <td><a href="/bulletin/detail?boardNo=${bulletin.boardNo}&viweFlag=true">${bulletin.title}</a>
                         </td>
                         <td>

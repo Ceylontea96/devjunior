@@ -74,7 +74,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/bulletin/list">
                 <div class="gradle"><img class="gradle-img" src="/images/gradle.png"></div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -85,24 +85,24 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="/bulletin/list" class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="/bulletin/list">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="https://github.com/">Git Site</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/users/myInfo" class="nav-link" href="#">MyInfo</a>
+                        <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
 
-
+                    <form class="log-In">
+                        <a href="/users/login" class="btn btn-warning">LOG IN</a>
+                        <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
+                        <a href="/users/logout" class="btn btn-secondary">LOG OUT</a>
+                    </form>
             </div>
-            <form class="log-In">
-                <a href="/users/login" class="btn btn-warning">LOG IN</a>
-                <a href="/users/sign-up" class="btn btn-info">SIGN UP</a>
-            </form>
         </div>
     </nav>
 
@@ -125,7 +125,7 @@
                 <input class="inputA" name="userPw" id="pw1" type="password" placeholder="비밀번호">
             </div>
             <div class="form-group">
-                <label for="exampleTextarea" class="form-label mt-4">PW</label>
+                <label for="exampleTextarea" class="form-label mt-4">PW Check</label>
                 <input class="inputA" type="password" id="pw2" placeholder="비밀번호 확인">
             </div>
             <div class="checkmsg">
@@ -207,10 +207,10 @@
             e.preventDefault();
 
             const $form = document.getElementById('reg-form');
-            if ($msg.classList.contains('right')) {
+            if ($msg.classList.contains('right') && $idcheck.classList.contains('right')) {
                 $form.submit();
             } else {
-                alert('비밀번호를 확인해주세요.');
+                alert('아이디 또는 비밀번호를 확인해주세요.');
             }
         };
     </script>
