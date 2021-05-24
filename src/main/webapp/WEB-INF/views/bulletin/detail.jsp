@@ -110,6 +110,13 @@
         .replyh1{
             font-size: 15px;
         }
+
+        span.lnr-undo,
+        span.lnr-checkmark-circle {
+            display: inline-block;
+            transform: scale(1.2);
+        }
+
     </style>
 </head>
 
@@ -243,7 +250,7 @@
                                 <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${reply.replyDate}" />
                             </td>
                             <td>
-                                <a href="/reply/modify?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
+                                <a class="modi" href="#" value="${reply.replyNo}">
                                     <div class="modify">
                                         <span class="lnr lnr-undo"></span>
                                     </div>
@@ -290,15 +297,26 @@
         //댓글 수정 완료 이벤트 처리 함수 정의
         function modifyReply($modCompleteSpan) {
 
-            modCompleteSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
+            const $btn = $modCompleteSpan.parentNode.parentNode;
+            console.log($btn);
 
-            const $reList = $modSpan.parentNode.parentNode.parentNode.parentNode;
-            console.log($reList.getAttribute('value'));
-
-            const $label = $modCompleteSpan.parentNode.parentNode.parentNode.parentNode;
+            console.log("댓글번호" + $btn.getAttribute('value'));
+            
+            
+            $modCompleteSpan.classList.replace('lnr-checkmark-circle', 'lnr-undo');
+            
+            // const $reList = $modSpan.parentNode.parentNode.parentNode.parentNode;
+            // console.log($reList.getAttribute('value'));
+            const $reList = $modCompleteSpan.parentNode.parentNode.parentNode.parentNode;
+            console.log($reList);
+            
+            
+            const $label = $reList.firstElementChild.nextElementSibling;
+            // const $label = $modCompleteSpan.parentNode.parentNode.parentNode.parentNode;
             console.log($label);
             const $modInput = $label.firstElementChild;
             console.log($modInput);
+            $btn.setAttribute('href', '/reply/modify?replyNo='+$btn.getAttribute('value')+'&boardNo=${bulletin.boardNo}&content='+$modInput.value);
 
             const $textSpan = document.createElement('span');
             $textSpan.classList.add('text');
@@ -321,9 +339,9 @@
 
 
         $replyList.addEventListener('click', e => {
-            // e.preventDefault();
-
+            console.log('target:',e.target);
             if (e.target.matches('div span.lnr-undo')) {
+                e.preventDefault();
                 enterModifyMode(e.target);
             } else if (e.target.matches('div span.lnr-checkmark-circle')) {
                 modifyReply(e.target);

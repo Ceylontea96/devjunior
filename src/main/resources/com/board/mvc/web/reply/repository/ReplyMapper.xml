@@ -24,6 +24,7 @@
         UPDATE reply
         SET content = #{content}
         WHERE reply_no = #{replyNo}
+        AND board_no = #{boardNo}
     </update>
 
 

@@ -23,6 +23,7 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/bulletin")
 @RequiredArgsConstructor
+@CrossOrigin
 public class BulletinController {
 
     private final BulletinService bulletinService;
