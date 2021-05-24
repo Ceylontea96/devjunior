@@ -16,6 +16,8 @@
         WHERE board_no = #{boardNo}
     </delete>
 
+
+
     <resultMap id="bulletinMap" type="com.board.mvc.web.board.domain.Bulletin">
         <result property="boardNo" column="board_no"/>
         <result property="viewCnt" column="views"/>
