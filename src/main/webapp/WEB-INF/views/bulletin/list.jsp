@@ -29,7 +29,7 @@
 
         .d-flex {
             float: right;
-            padding: 10px;
+            margin: 20px;
         }
 
         .d-flex .type {
@@ -61,12 +61,17 @@
 
         #btn-write {
             float: right;
-            margin: 30px;
+            margin: 50px;
         }
 
         .hide {
             display: none;
         }
+        
+        td, th{
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -88,10 +93,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104" target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
@@ -111,7 +116,6 @@
     <img src="/images/community.png">
 
     <h1>Developer's Community</h1>
-    <br><br>
 
     <!-- 검색 영역 -->
     <div class="d-flex">
@@ -128,14 +132,12 @@
         </form>
     </div>
 
-    <br>
-
     <c:if test="${bulletinList.size() <= 0}">
         <p>게시물이 존재하지 않습니다.</p>
     </c:if>
 
     <c:if test="${bulletinList.size() > 0}">
-        <table class="table table-hover">
+        <table class="table table-hover" id="bulletinTable">
             <tbody>
                 <tr class="table-active">
                     <th scope="col">글번호</th>
@@ -160,6 +162,7 @@
                 </c:forEach>
             </tbody>
         </table>
+
 
         <!-- 페이지 영역 -->
         <div class="pageMaker">

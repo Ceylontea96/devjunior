@@ -77,10 +77,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104" target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
@@ -103,7 +103,9 @@
         <div class="card-body">
             <h5 class="card-title">로그인이 정상적으로 완료되었습니다.</h5>
         </div>
+        <a href="/bulletin/list" class="btn btn-primary btn-lg">메인으로 가기</a>
     </div>
+
 
     <script>
         //접속중인 유저 확인

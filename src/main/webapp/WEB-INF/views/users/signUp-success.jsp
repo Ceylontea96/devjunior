@@ -77,10 +77,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104" target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
@@ -104,7 +104,9 @@
             <h5 class="card-title">회원가입이 정상적으로 완료되었습니다.</h5>
             <h5 class="card-title">이제 로그인 하실 수 있습니다.</h5>
         </div>
+        <a href="/users/login" class="btn btn-primary btn-lg">로그인하기</a>
     </div>
+
 
     <script>
         //접속중인 유저 확인

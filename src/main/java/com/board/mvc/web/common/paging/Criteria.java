@@ -10,10 +10,9 @@ public class Criteria {
     private int page;
     private int amount;
 
-
     // 검색
-    private String type;
-    private String keyword;
+    private String type; // 타입
+    private String keyword; // 고객이 검색할 키워드
 
     public Criteria(String type, String keyword) {
         this.type = type;

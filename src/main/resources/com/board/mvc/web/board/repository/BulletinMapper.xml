@@ -30,7 +30,6 @@
 
     <!-- 게시글 전체 보기 - paging 처리 -->
     <select id="getArticles" resultMap="bulletinMap">
-        <!-- 특수기호 사용 위함 -->
         <![CDATA[
         SELECT
             board_no, writer, user_name, title, post_time, views, recommend
@@ -55,6 +54,7 @@
         </if>
         <![CDATA[
                 rownum <= #{page} * #{amount}
+                ORDER BY board_no DESC
                 )
         WHERE rn > (#{page}-1) * #{amount}
         ]]>
@@ -109,7 +109,6 @@
 
 
     <!-- keyword 에 따른 검색 기능 -->
-    <!-- 작성자 / 제목 / 내용 / 제목+내용 -->
     <select id="listSearch" resultMap="bulletinMap">
         <![CDATA[
             SELECT

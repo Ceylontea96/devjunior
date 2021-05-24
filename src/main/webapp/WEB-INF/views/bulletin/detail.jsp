@@ -21,12 +21,10 @@
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 
     <script defer></script>
-
     <style>
         h1 {
             text-align: center;
-            padding: 50px;
-            margin-bottom: 50px;
+            margin-top: 50px;
         }
 
         .gradle-img {
@@ -49,7 +47,7 @@
         .inputA {
             border: 1px solid lightgray;
             border-radius: 5px;
-            width: 500px;
+            width: 600px;
             height: 40px;
             padding: 5px;
         }
@@ -67,7 +65,8 @@
         .thumbs {
             font-size: 30px;
             position: absolute;
-            right: 0;
+            right: 50px;
+            top: -65px;
         }
 
         .content-container {
@@ -87,6 +86,29 @@
 
         .hide {
             display: none;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+        #navbarColor01{
+            margin-right: 30px !important;
+        }
+        .mt-4{
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .cont{
+            font-size: 17px;
+            line-height: 40px;
+        }
+        #btn-reply{
+            margin: 20px;
+            margin-top: 30px;
+        }
+        .replyh1{
+            font-size: 15px;
         }
     </style>
 </head>
@@ -109,15 +131,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104">Education</a>
+                            href="https://itstar.edueroom.co.kr/lecture.php?action=view&no=177&code=0b0104"
+                            target="_blank">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/">Git Site</a>
+                        <a class="nav-link" href="https://github.com/" target="_blank">Git Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/users/myInfo">My Info</a>
                     </li>
-
                     <form class="log-In" id="loginBtn">
                         <a href="/users/login" id="loginBtn" class="btn btn-warning">LOG IN</a>
                         <a href="/users/sign-up" id="singupBtn" class="btn btn-info">SIGN UP</a>
@@ -130,39 +152,37 @@
     </nav>
 
     <h1>게시글 보기</h1>
-
-
     <section class="content">
         <div class="form-group">
-            <label for="exampleTextarea" class="form-label mt-4">NO</label>
-            ${bulletin.boardNo}
+            <label for="exampleTextarea" class="form-label mt-4">NO</label><br>
+            <p class="cont">${bulletin.boardNo}</p>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">TITLE</label><br>
-            <p>${bulletin.title}</p>
+            <p class="cont">${bulletin.title}</p>
         </div>
         <div class="post-time">
             <label for="exampleTextarea" class="form-label mt-4">DATE</label>
-            <p>
+            <p class="cont">
                 <fmt:formatDate pattern="yyyy년 MM월 dd일 HH:mm:ss" value="${bulletin.postTime}" />
             </p>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">WRITER</label><br>
-            <p>${bulletin.userName}</p>
+            <p class="cont">${bulletin.userName}</p>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">VIEWS</label><br>
-            <p>${bulletin.viewCnt}</p>
+            <p class="cont">${bulletin.viewCnt}</p>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">RECOMMEND</label><br>
-            <p>${bulletin.recommend}</p>
+            <p class="cont">${bulletin.recommend}</p>
         </div>
         <div class="content-container">
             <div class="form-group">
                 <label for="exampleTextarea" class="form-label mt-4">CONTENT</label><br>
-                <p>${bulletin.content}</p>
+                <p class="cont">${bulletin.content}</p>
             </div>
             <div class="thumbs">
                 <a href="/bulletin/recommend?boardNo=${bulletin.boardNo}&viewFlag=false"><span
@@ -178,7 +198,7 @@
                 id="delete-bulletin">삭제하기</a>
         </div>
 
-
+        
         <!-- 댓글 입력 -->
         <hr>
         <form action="/reply/insert" method="POST">
@@ -187,16 +207,15 @@
             <input type="hidden" name="userName" value="bb">
             <div>
                 <div class="form-group">
-                    <label class="form-label mt-4">댓글</label>
+                    <label for="exampleTextarea" class="form-label mt-4">댓글</label><br>
                 </div>
                 <div>
                     <textarea class="form-control" name="content" id="exampleTextarea" rows="3"
                         placeholder="댓글을 입력해주세요."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">댓글 작성</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="btn-reply">댓글 작성</button>
             </div>
         </form>
-
 
 
         <!-- 댓글 목록 출력 -->
@@ -216,7 +235,6 @@
                         <th scope="col">삭제</th>
                     </tr>
                     <c:forEach var="reply" items="${replyList}">
-
                         <tr class="reply-list" value="${reply.replyNo}">
                             <td>${reply.userName}</td>
                             <td class="reply-content"><span>${reply.content}</span></td>
@@ -231,14 +249,11 @@
                                     </div>
                                 </a>
                             <td>
-                                <form action="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}"
-                                    id="del-form">
-                                    <!-- <a href="#"> -->
+                                <a href="/reply/delete?replyNo=${reply.replyNo}&boardNo=${bulletin.boardNo}">
                                     <div class="remove">
                                         <span class="lnr lnr-cross-circle"></span>
                                     </div>
-                                    <!-- </a> -->
-                                </form>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -247,13 +262,8 @@
             </fieldset>
         </c:if>
     </section>
-
-
     <script>
         const $replyList = document.querySelector('.reply-list');
-
-
-
 
 
         //댓글 수정 모드 진입 이벤트 처리 함수
@@ -366,11 +376,6 @@
         //         return;
         //     }
         // });
-
-
-
-
-
 
 
         const $modifyBul = document.getElementById('modify-bulletin');
