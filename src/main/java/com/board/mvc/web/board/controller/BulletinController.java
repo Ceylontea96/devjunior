@@ -133,7 +133,7 @@ public class BulletinController {
             model.addAttribute("nowUser", user);
         }
         bulletinService.modifyArticle(modifyBulletin);
-        return "redirect:/bulletin/detail?boardNo=" + modifyBulletin.getBoardNo() + "&viewFlag=false";
+        return "redirect:/bulletin/detail?boardNo=" + modifyBulletin.getBoardNo() + "&viewFlag=" + viewFlag;
     }
 
     // 추천 수 증가 요청

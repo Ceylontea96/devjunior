@@ -115,7 +115,6 @@
                 console.log(nowUser.userName);
                 hideLogin(nowUser.userName);
                 hideLogout(nowUser.userName);
-
             });
 
         const $loginBtn = document.getElementById('loginBtn');

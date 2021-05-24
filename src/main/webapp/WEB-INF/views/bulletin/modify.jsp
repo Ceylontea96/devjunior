@@ -103,7 +103,7 @@
     <h1>${bulletin.boardNo}번 게시글 수정</h1>
     <br><br>
 
-    <form action="/bulletin/modify" method="post">
+    <form action="/bulletin/modify" method="POST">
         <input type="hidden" name="boardNo" value="${bulletin.boardNo}">
         <input type="hidden" name="viewFlag" value="false">
         <fieldset class="insert">
@@ -121,7 +121,7 @@
             </div>
             <br>
             <p>
-                <button class="btn btn-primary btn-lg" id="register">완료</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="register">완료</button>
                 <a href="/bulletin/list" class="btn btn-primary btn-lg" id="list">목록보기</a>
             </p>
         </fieldset>
@@ -142,6 +142,7 @@
         // const $signupBtn = document.getElementById('signupBtn');
         const $logoutBtn = document.getElementById('logoutBtn');
 
+        //display:none 적용
         function hideLogout(uName) {
             if (uName == "anonymous") {
                 $logoutBtn.classList.add('hide');
