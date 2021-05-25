@@ -160,7 +160,7 @@
         const $nickCheck = document.getElementById('nickNameCheck');
 
         function nickCheck() {
-            fetch('http://localhost:8181/users/nick/' + $inputNick.value)
+            fetch('http://192.168.1.155:8181/users/nick/' + $inputNick.value)
                 .then(res => res.json())
                 .then(result => {
                     console.log(result);
@@ -192,7 +192,7 @@
         const $idcheck = document.getElementById('idcheck');
 
         function idCheck() {
-            fetch('http://localhost:8181/users/exist/' + $inputId.value)
+            fetch('http://192.168.1.155:8181/users/exist/' + $inputId.value)
                 .then(res => res.json())
                 .then(result => {
                     console.log(result);
@@ -260,7 +260,7 @@
 
 
         //접속중인 유저 확인
-        fetch('http://localhost:8181/users/now-user')
+        fetch('http://192.168.1.155:8181/users/now-user')
             .then(res => res.json())
             .then(nowUser => {
                 console.log(nowUser.userName);

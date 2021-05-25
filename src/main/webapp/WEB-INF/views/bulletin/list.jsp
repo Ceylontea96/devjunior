@@ -206,17 +206,17 @@
 
         (function () {
             appendPageActive('${pageMaker.criteria.page}');
+            //접속중인 유저 확인
+            fetch('http://192.168.1.155:8181/users/now-user')
+                .then(res => res.json())
+                .then(nowUser => {
+                    console.log(nowUser.userName);
+                    hideLogin(nowUser.userName);
+                    hideLogout(nowUser.userName);
+    
+                });
         }());
 
-        //접속중인 유저 확인
-        fetch('http://localhost:8181/users/now-user')
-            .then(res => res.json())
-            .then(nowUser => {
-                console.log(nowUser.userName);
-                hideLogin(nowUser.userName);
-                hideLogout(nowUser.userName);
-
-            });
 
         const $loginBtn = document.getElementById('loginBtn');
         // const $signupBtn = document.getElementById('signupBtn');

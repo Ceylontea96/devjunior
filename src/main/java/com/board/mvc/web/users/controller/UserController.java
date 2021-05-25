@@ -44,6 +44,8 @@ public class UserController {
             if (userService.isPwRight(user)) {
                 log.info("로그인 성공한 유저 : " + loginUser);
                 session.setAttribute(LOGIN_USER, loginUser);
+                User user1 = (User) session.getAttribute(LOGIN_USER);
+                log.info("로그인 됨?" + user1);
                 model.addAttribute("userId", loginUser.getUserId());
                 return "/users/login-success";
             } else {

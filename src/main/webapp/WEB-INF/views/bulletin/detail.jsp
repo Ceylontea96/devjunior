@@ -400,7 +400,7 @@
         const $deleteBul = document.getElementById('delete-bulletin');
 
 
-        fetch('http://localhost:8181/bulletin/bulIdentify/${bulletin.writer}')
+        fetch('http://192.168.1.155:8181/bulletin/bulIdentify/${bulletin.writer}')
             .then(res => res.json())
             .then(result => {
                 console.log("본인 확인 결과 : " + result);
@@ -420,7 +420,7 @@
         }
 
         //접속중인 유저 확인
-        fetch('http://localhost:8181/users/now-user')
+        fetch('http://192.168.1.155:8181/users/now-user')
             .then(res => res.json())
             .then(nowUser => {
                 console.log(nowUser.userName);
